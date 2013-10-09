@@ -16,3 +16,8 @@ std::string Feature::toString()
 {
   return "Feature";
 }
+
+std::string Feature::work()
+{
+  return "buggy";
+}
