@@ -14,6 +14,7 @@ mkdir reports || exit $?
 # TODO OP how have both coverage and release? two sequential builds?
 cmake -DCMAKE_BUILD_TYPE=Debug .. || exit $?
 make || exit $?
+make doc || exit $?
 ./test/MyLib_GTest --gtest_output=xml:reports/xunit-report.xml || exit $?
 
 # TODO OP do something with the package (upload in an artifact repository?)
