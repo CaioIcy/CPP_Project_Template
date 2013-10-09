@@ -19,5 +19,5 @@ std::string Feature::toString()
 
 std::string Feature::work()
 {
-  return "buggy";
+  return "work";
 }
