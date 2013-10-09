@@ -16,6 +16,9 @@ cmake -DCMAKE_BUILD_TYPE=Debug .. || exit $?
 make || exit $?
 ./test/MyLib_GTest --gtest_output=xml:reports/xunit-report.xml || exit $?
 
+# TODO OP do something with the package (upload in an artifact repository?)
+make package || exit $?
+
 popd
 
 exit $?
