@@ -1,8 +1,6 @@
 # Build steps
 file(GLOB_RECURSE MYLIB_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
-set(MYLIB_NAME MyLib)
-
 add_library(${MYLIB_NAME} STATIC ${MYLIB_SRC_FILES})
 include_directories(
   ${PROJECT_SOURCE_DIR}/include
@@ -19,18 +17,3 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/include
   DESTINATION .
   COMPONENT headers
 )
-
-# Packaging steps
-set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
-set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
-set(CPACK_COMPONENTS_ALL libraries headers)
-set(CPACK_PACKAGE_NAME ${MYLIB_NAME})
-set(CPACK_PACKAGE_VENDOR "Acme")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MYLIB_NAME} - Some description")
-set(CPACK_PACKAGE_VERSION "1.0.0")
-set(CPACK_PACKAGE_VERSION_MAJOR "1")
-set(CPACK_PACKAGE_VERSION_MINOR "0")
-set(CPACK_PACKAGE_VERSION_PATCH "0")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "TODO")
-# must be executed after CPACK properties definition
-include(CPack)
