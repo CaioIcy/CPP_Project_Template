@@ -1,9 +1,11 @@
 #!/bin/bash
 echo "Hello World!"
 
+rm -Rf .build || exit $?
 mkdir .build || exit $?
-mkdir .build/reports || exit $?
 pushd .build
+
+mkdir reports || exit $?
 
 # debug to get code coverage.
 # TODO OP how have both coverage and release? two sequential builds?
