@@ -24,9 +24,9 @@ gcovr -x test/CMakeFiles/MyLib_GTest.dir/mylib > ${REPORTS_DIR}/gcov-report.xml 
 
 # CPP Check report (handled by jenkins)
 # TODO OP configure where includes and source are stored from CMake
-cd ${BASE_DIR}
+pushd ${BASE_DIR}
 cppcheck -v --enable=all --xml -Iinclude src 2> ${REPORTS_DIR}/cppcheck-report.xml || exit $?
-cd ${BUILD_DIR}
+popd
 
 make doc || exit $? # included in archive
 make package || exit $? # archived by jenkins
