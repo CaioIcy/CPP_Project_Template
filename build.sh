@@ -17,6 +17,9 @@ make || exit $?
 make doc || exit $?
 ./test/MyLib_GTest --gtest_output=xml:reports/xunit-report.xml || exit $?
 
+# TODO OP configure where .gcna files are stored
+gcovr -x test/CMakeFiles/MyLib_GTest.dir/mylib > reports/gcov-report.xml || exit $?
+
 # TODO OP do something with the package (upload in an artifact repository?)
 make package || exit $?
 
