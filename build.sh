@@ -1,9 +1,11 @@
 #!/bin/bash
 echo "Hello World!"
 
-rm -Rf .build || exit $?
-mkdir .build || exit $?
-pushd .build
+BUILD_DIR=.build
+
+rm -Rf ${BUILD_DIR} || exit $?
+mkdir ${BUILD_DIR} || exit $?
+pushd ${BUILD_DIR}
 
 mkdir reports || exit $?
 
