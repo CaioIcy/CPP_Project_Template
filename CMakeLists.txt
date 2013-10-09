@@ -3,6 +3,7 @@ project(MyLib)
 
 set(MYLIB_NAME "MyLib")
 set(MYLIB_VERSION "0.1.0")
+set(MYLIB_BRIEF "${MYLIB_NAME} is a toy project to illustrate a full featured C++ CMake project.")
 
 option(MYLIB_TESTS_ENABLED "Enable tests build" ON)
 
@@ -33,7 +34,15 @@ if(MYLIB_TESTS_ENABLED)
   add_subdirectory(test)
 endif()
 
+# used by doc home and in packaging
 set(README_FILE ${PROJECT_SOURCE_DIR}/README.md)
+
+# documentation
+if(NOT DOC_DISABLED)
+  add_subdirectory(doc)
+endif()
+
+# Licensing and stuff like that
 set(LICENSE_FILE ${PROJECT_SOURCE_DIR}/LICENSE-MIT)
 install(FILES
 	${README_FILE}
@@ -51,7 +60,7 @@ set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
 set(CPACK_COMPONENTS_ALL libraries headers)
 set(CPACK_PACKAGE_NAME ${MYLIB_NAME})
 set(CPACK_PACKAGE_VENDOR "Acme")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MYLIB_NAME} - Some description")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MYLIB_NAME} - ${MYLIB_BRIEF}")
 set(CPACK_PACKAGE_VERSION ${MYLIB_VERSION})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "TODO")
 # must be executed after CPACK properties definition
