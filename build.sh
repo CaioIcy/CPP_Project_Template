@@ -1,7 +1,8 @@
 #!/bin/bash
-echo "Hello World!"
 
-BUILD_DIR=.build
+BASE_DIR=$(dirname $(readlink -f $0))
+
+BUILD_DIR=${BASE_DIR}/build~
 
 rm -Rf ${BUILD_DIR} || exit $?
 mkdir ${BUILD_DIR} || exit $?
