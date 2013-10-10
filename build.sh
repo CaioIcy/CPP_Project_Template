@@ -20,7 +20,7 @@ valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-report.xml test/MyLib_GTes
 
 # Code Coverage report (Cobertura) (handled by jenkins)
 # TODO OP configure where .gcna files are stored from CMake and Lib name
-#gcovr -x -r test/CMakeFiles/MyLib_GTest.dir/mylib -f ${BASE_DIR}/src > ${REPORTS_DIR}/gcov-report.xml || exit $?
+gcovr -x -r test/CMakeFiles/MyLib_GTest.dir/mylib -f ${BASE_DIR}/src > ${REPORTS_DIR}/gcov-report.xml || exit $?
 
 # CPP Check report (handled by jenkins)
 # TODO OP configure where includes and source are stored from CMake
