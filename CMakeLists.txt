@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(MyLib)
 
 set(MYLIB_NAME "MyLib")
-set(MYLIB_VERSION "0.2.0")
+set(MYLIB_VERSION "0.3.0")
 set(MYLIB_BRIEF "${MYLIB_NAME} is a toy project to illustrate a full featured C++ CMake project.")
 
 option(MYLIB_TESTS_ENABLED "Enable tests build" ON)
