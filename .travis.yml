@@ -3,4 +3,4 @@ compiler:
   - gcc
 #before_install:
 # TODO install all required tools
-script: build.sh
+script: ./build.sh
