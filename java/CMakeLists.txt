@@ -19,27 +19,32 @@ include_directories(
   ${JNI_INCLUDE_DIRS}
 )
 
-swig_add_module(MyLibSWIG java ${MYLIB_SWIG_FILES})
+swig_add_module(MyLibCPP java ${MYLIB_SWIG_FILES})
 
-swig_link_libraries(MyLibSWIG MyLib)
+swig_link_libraries(MyLibCPP MyLib)
 
 set(CMAKE_JAVA_TARGET_VERSION ${MYLIB_VERSION})
 set(CMAKE_JNI_TARGET TRUE)
-add_jar(MyLibJNI ${CMAKE_SWIG_OUTDIR}/*.java)
-install_jar(MyLibJNI jlib)
+add_jar(MyLibJava ${CMAKE_SWIG_OUTDIR}/*.java)
+add_dependencies(MyLibJava MyLibCPP)
 
-create_javadoc(MyLibJavadoc
+create_javadoc(javadoc
   PACKAGES ${MYLIB_PACKAGE_NAME}
   SOURCEPATH ${CMAKE_CURRENT_BINARY_DIR}/src
   CLASSPATH ${CMAKE_JAVA_INCLUDE_PATH}
-  INSTALLPATH ${CMAKE_CURRENT_BINARY_DIR}/javadoc
+  INSTALLPATH ${CMAKE_CURRENT_BINARY_DIR}
   WINDOWTITLE ${MYLIB_NAME}
   DOCTITLE "<h1>${MYLIB_NAME}</h1>"
   AUTHOR TRUE
   USE TRUE
   VERSION TRUE
 )
-# TODO OP add javadoc to CPack
-# TODO OP retrieve Doxygen doc in Javadoc?
 
-add_dependencies(MyLibJNI MyLibSWIG)
+install_jar(MyLibJava java/lib)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}MyLibCPP${CMAKE_SHARED_LIBRARY_SUFFIX}
+  DESTINATION java/lib
+)
+# TODO OP retrieve Doxygen doc in Javadoc?
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/javadoc
+  DESTINATION java
+)
