@@ -33,6 +33,9 @@ if(MYLIB_TESTS_ENABLED)
   add_subdirectory(test)
 endif()
 
+# Generate Java wrapper over our library API
+add_subdirectory(java)
+
 # used by doc home and in packaging
 set(README_FILE ${PROJECT_SOURCE_DIR}/README.md)
 
