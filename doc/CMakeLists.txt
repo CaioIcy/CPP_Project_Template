@@ -7,7 +7,7 @@ if(DOXYGEN_FOUND)
   )
   install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html
     DESTINATION doc
-)
+  )
 else(DOXYGEN_FOUND)
   message(FATAL_ERROR "Doxygen is mandatory for doc generation.")
 endif(DOXYGEN_FOUND)
