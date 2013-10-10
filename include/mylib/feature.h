@@ -14,11 +14,11 @@ public:
   /*!
    * <p>Returns "Feature".</p>
    */
-  std::string toString();
+  std::string toString() const;
 
   /*!
    * <p>Returns "work".</p>
    */
-  std::string work();
+  std::string work() const;
 };
 }

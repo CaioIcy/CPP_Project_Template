@@ -12,12 +12,12 @@ Feature::~Feature()
 
 }
 
-std::string Feature::toString()
+std::string Feature::toString() const
 {
   return "Feature";
 }
 
-std::string Feature::work()
+std::string Feature::work() const
 {
   return "work";
 }
