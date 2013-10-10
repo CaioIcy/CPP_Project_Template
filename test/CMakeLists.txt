@@ -5,8 +5,7 @@ include(ExternalProject)
 
 ExternalProject_Add(
     gtest
-    GIT_REPOSITORY file:///home/opatry/work/cpp/gtest-1.6.0
-    GIT_TAG v1.6.0
+    SVN_REPOSITORY http://googletest.googlecode.com/svn/tags/release-1.7.0
     TIMEOUT 10
     # Disable install step
     INSTALL_COMMAND ""
