@@ -1,4 +1,7 @@
 language: cpp
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq doxygen valgrind cppcheck gcovr
 compiler:
   - gcc
 #before_install:
