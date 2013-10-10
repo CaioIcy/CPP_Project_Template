@@ -23,12 +23,11 @@ set(CMAKE_C_FLAGS_DEBUG ${GCOV_FLAGS})
 set(CMAKE_EXE_LINKER_FLAGS_DEBUG ${GCOV_FLAGS})
 
 # TODO OP check how this works on multiple configurations generators
-
-add_subdirectory(src)
-
 # available configurations in multiple configurations enabled generators
 set(CMAKE_CONFIGURATION_TYPES Debug Release)
 #message("CMAKE_CFG_INTDIR = ${CMAKE_CFG_INTDIR}")
+
+add_subdirectory(src)
 
 if(MYLIB_TESTS_ENABLED)
   add_subdirectory(test)
