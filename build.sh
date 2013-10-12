@@ -2,7 +2,7 @@
 
 BASE_DIR=$(dirname "$(readlink -f $0)")
 
-BUILD_DIR=${BASE_DIR}/build~
+BUILD_DIR=${BASE_DIR}/../bin
 REPORTS_DIR=${BUILD_DIR}/reports
 
 rm -Rf ${BUILD_DIR} || exit $?
