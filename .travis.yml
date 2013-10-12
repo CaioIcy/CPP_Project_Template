@@ -3,7 +3,5 @@ before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq doxygen valgrind cppcheck
 compiler:
-  - gcc
-#before_install:
-# TODO install all required tools
+ - gcc
 script: ./build.sh
