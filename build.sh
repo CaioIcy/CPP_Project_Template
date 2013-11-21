@@ -28,8 +28,7 @@ pushd ${BASE_DIR}
 cppcheck -v --enable=all --xml -Iinclude src 2> ${REPORTS_DIR}/cppcheck-report.xml || exit $?
 popd
 
-make doc || exit $? # included in archive
-make package || exit $? # archived by jenkins
+cpack || exit $? # archived by jenkins
 
 popd
 
