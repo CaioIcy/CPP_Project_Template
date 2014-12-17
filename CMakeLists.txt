@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(MyLib)
 
 if($ENV{BUILD_NUMBER})
-  set(BUILD_NUMBER $ENV{BUILD_NUMBER})
+	set(BUILD_NUMBER $ENV{BUILD_NUMBER})
 else()
-  set(BUILD_NUMBER 0)
+	set(BUILD_NUMBER 0)
 endif()
 
 set(MYLIB_NAME "MyLib")
@@ -36,18 +36,15 @@ set(CMAKE_CONFIGURATION_TYPES Debug Release)
 add_subdirectory(src)
 
 if(MYLIB_TESTS_ENABLED)
-  add_subdirectory(test)
+	add_subdirectory(test)
 endif()
-
-# Generate Java wrapper over our library API
-add_subdirectory(java)
 
 # used by doc home and in packaging
 set(README_FILE ${PROJECT_SOURCE_DIR}/README.md)
 
 # documentation
 if(NOT DOC_DISABLED)
-  add_subdirectory(doc)
+	add_subdirectory(doc)
 endif()
 
 # Licensing and stuff like that
@@ -55,8 +52,9 @@ set(LICENSE_FILE ${PROJECT_SOURCE_DIR}/LICENSE-MIT)
 install(FILES
 	${README_FILE}
 	${LICENSE_FILE}
-  DESTINATION .
+	DESTINATION .
 )
+
 # Packaging steps
 #set(CPACK_SYSTEM_NAME ${CMAKE_SYSTEM_NAME}_${CMAKE_SYSTEM_PROCESSOR})
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
@@ -71,8 +69,8 @@ set(CPACK_PACKAGE_VENDOR "Acme")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MYLIB_NAME} - ${MYLIB_BRIEF}")
 set(CPACK_PACKAGE_VERSION ${MYLIB_VERSION})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "TODO")
+
 # must be executed after CPACK properties definition
 include(CPack)
-
 
 # TODO sonar requirements
