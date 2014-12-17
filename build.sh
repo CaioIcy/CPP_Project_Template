@@ -16,11 +16,11 @@ mkdir -p ${REPORTS_DIR} || exit $?
 # TODO OP how have both coverage and release? two sequential builds?
 cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
 make || exit $?
-valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-report.xml test/MyLib_GTest --gtest_output=xml:${REPORTS_DIR}/xunit-report.xml || exit $?
+valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-report.xml test/MyProject_GTest --gtest_output=xml:${REPORTS_DIR}/xunit-report.xml || exit $?
 
 # Code Coverage report (Cobertura) (handled by jenkins)
 # TODO OP configure where .gcna files are stored from CMake and Lib name
-gcovr -x -r test/CMakeFiles/MyLib_GTest.dir/mylib -f ${BASE_DIR}/src > ${REPORTS_DIR}/gcov-report.xml || exit $?
+gcovr -x -r test/CMakeFiles/MyProject_GTest.dir/myproject -f ${BASE_DIR}/src > ${REPORTS_DIR}/gcov-report.xml || exit $?
 
 # CPP Check report (handled by jenkins)
 # TODO OP configure where includes and source are stored from CMake

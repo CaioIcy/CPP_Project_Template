@@ -20,9 +20,14 @@ ExternalProject_Get_Property(gtest source_dir)
 ExternalProject_Get_Property(gtest binary_dir)
 
 # tests definition
-set(TARGET MyLib)
+set(TARGET MyProject)
 set(GTEST_TARGET ${TARGET}_GTest)
 file(GLOB_RECURSE TESTS_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+
+execute_process(COMMAND echo "------------------------")
+execute_process(COMMAND echo ${source_dir})
+execute_process(COMMAND echo ${binary_dir})
+execute_process(COMMAND echo "------------------------")
 
 add_executable(${GTEST_TARGET} ${TESTS_FILES})
 include_directories(
@@ -41,3 +46,6 @@ target_link_libraries(${GTEST_TARGET}
 if(CMAKE_COMPILER_IS_GNUC OR CMAKE_COMPILER_IS_GNUCXX)
 	target_link_libraries(${GTEST_TARGET} pthread)
 endif()
+
+
+# TODO use offline gtest (https://github.com/dmonopoly/gtest-cmake-example)

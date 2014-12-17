@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
-project(MyLib)
+project(MyProject)
 
 if($ENV{BUILD_NUMBER})
 	set(BUILD_NUMBER $ENV{BUILD_NUMBER})
@@ -7,11 +7,12 @@ else()
 	set(BUILD_NUMBER 0)
 endif()
 
-set(MYLIB_NAME "MyLib")
-set(MYLIB_VERSION "0.3.0.${BUILD_NUMBER}")
-set(MYLIB_BRIEF "${MYLIB_NAME} is a toy project to illustrate a full featured C++ CMake project.")
+set(MYPROJECT_NAME "MyProject")
+set(MYPROJECT_VERSION "0.3.0.${BUILD_NUMBER}")
+set(MYPROJECT_BRIEF "${MYPROJECT_NAME} is a toy project to illustrate a full featured C++ CMake project.")
 
-option(MYLIB_TESTS_ENABLED "Enable tests build" ON)
+# Options. Turn on with 'cmake -Dmyvarname=ON'.
+option(MYPROJECT_TESTS_ENABLED "Enable tests build" ON)
 
 # code coverage options
 set(GCOV_FLAGS "-fprofile-arcs -ftest-coverage")
@@ -35,7 +36,7 @@ set(CMAKE_CONFIGURATION_TYPES Debug Release)
 
 add_subdirectory(src)
 
-if(MYLIB_TESTS_ENABLED)
+if(MYPROJECT_TESTS_ENABLED)
 	add_subdirectory(test)
 endif()
 
@@ -64,10 +65,10 @@ set(CPACK_GENERATOR "ZIP") #;TGZ;STGZ")
 set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
 set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
 set(CPACK_COMPONENTS_ALL libraries headers)
-set(CPACK_PACKAGE_NAME ${MYLIB_NAME})
+set(CPACK_PACKAGE_NAME ${MYPROJECT_NAME})
 set(CPACK_PACKAGE_VENDOR "Acme")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MYLIB_NAME} - ${MYLIB_BRIEF}")
-set(CPACK_PACKAGE_VERSION ${MYLIB_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MYPROJECT_NAME} - ${MYPROJECT_BRIEF}")
+set(CPACK_PACKAGE_VERSION ${MYPROJECT_VERSION})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "TODO")
 
 # must be executed after CPACK properties definition
