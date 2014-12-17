@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace myproject
+namespace some_module
 {
 class Feature
 {

@@ -1,6 +1,6 @@
-#include <myproject/feature.h>
+#include <some_module/feature.h>
 
-using namespace myproject;
+using namespace some_module;
 
 Feature::Feature()
 {
