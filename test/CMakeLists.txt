@@ -1,6 +1,9 @@
+execute_process(COMMAND echo "CMAKE: Starting subdir 'test' cmake")
+execute_process(COMMAND echo "CMAKE: Enable testing")
 enable_testing()
 
 # gtest definition
+execute_process(COMMAND echo "CMAKE: Including ExternalProject")
 include(ExternalProject)
 
 ExternalProject_Add(
@@ -24,17 +27,16 @@ set(TARGET MyProject)
 set(GTEST_TARGET ${TARGET}_GTest)
 file(GLOB_RECURSE TESTS_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
-execute_process(COMMAND echo "------------------------")
-execute_process(COMMAND echo ${source_dir})
-execute_process(COMMAND echo ${binary_dir})
-execute_process(COMMAND echo "------------------------")
-
+execute_process(COMMAND echo "CMAKE: Adding executable")
 add_executable(${GTEST_TARGET} ${TESTS_FILES})
+
 include_directories(
 	${source_dir}/include
 	${PROJECT_SOURCE_DIR}/include
 )
+
 add_dependencies(${GTEST_TARGET} gtest)
+
 target_link_libraries(${GTEST_TARGET}
 	${TARGET}
 # TODO OP should work but with something around ENABLE_EXPORTS
@@ -47,5 +49,5 @@ if(CMAKE_COMPILER_IS_GNUC OR CMAKE_COMPILER_IS_GNUCXX)
 	target_link_libraries(${GTEST_TARGET} pthread)
 endif()
 
-
 # TODO use offline gtest (https://github.com/dmonopoly/gtest-cmake-example)
+execute_process(COMMAND echo "CMAKE: Finish subdir 'test' cmake")

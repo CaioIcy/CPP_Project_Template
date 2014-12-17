@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
+
 project(MyProject)
+
+execute_process(COMMAND echo "CMAKE: Starting root cmake")
 
 if($ENV{BUILD_NUMBER})
 	set(BUILD_NUMBER $ENV{BUILD_NUMBER})
@@ -12,7 +15,7 @@ set(MYPROJECT_VERSION "0.3.0.${BUILD_NUMBER}")
 set(MYPROJECT_BRIEF "${MYPROJECT_NAME} is a toy project to illustrate a full featured C++ CMake project.")
 
 # Options. Turn on with 'cmake -Dmyvarname=ON'.
-option(MYPROJECT_TESTS_ENABLED "Enable tests build" ON)
+option(MYPROJECT_TESTS_ENABLED "Enable tests build" OFF)
 
 # code coverage options
 set(GCOV_FLAGS "-fprofile-arcs -ftest-coverage")
@@ -34,9 +37,11 @@ set(CMAKE_EXE_LINKER_FLAGS_DEBUG ${GCOV_FLAGS})
 set(CMAKE_CONFIGURATION_TYPES Debug Release)
 #message("CMAKE_CFG_INTDIR = ${CMAKE_CFG_INTDIR}")
 
+execute_process(COMMAND echo "CMAKE: Adding src subdirectory")
 add_subdirectory(src)
 
 if(MYPROJECT_TESTS_ENABLED)
+	execute_process(COMMAND echo "CMAKE: Adding test subdirectory")
 	add_subdirectory(test)
 endif()
 
@@ -45,6 +50,7 @@ set(README_FILE ${PROJECT_SOURCE_DIR}/README.md)
 
 # documentation
 if(NOT DOC_DISABLED)
+	execute_process(COMMAND echo "CMAKE: Adding doc subdirectory")
 	add_subdirectory(doc)
 endif()
 
@@ -72,6 +78,9 @@ set(CPACK_PACKAGE_VERSION ${MYPROJECT_VERSION})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "TODO")
 
 # must be executed after CPACK properties definition
+execute_process(COMMAND echo "CMAKE: Including CPack")
 include(CPack)
 
 # TODO sonar requirements
+
+execute_process(COMMAND echo "CMAKE: Finish root cmake")
