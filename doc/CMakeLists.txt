@@ -1,4 +1,4 @@
-execute_process(COMMAND echo "CMAKE: Starting subdir 'doc' cmake")
+message(STATUS "CMAKE: Starting subdir 'doc' cmake")
 
 find_package(Doxygen)
 
@@ -16,4 +16,4 @@ else(DOXYGEN_FOUND)
 	message(FATAL_ERROR "Doxygen was not found.")
 endif(DOXYGEN_FOUND)
 
-execute_process(COMMAND echo "CMAKE: Finish subdir 'doc' cmake")
+message(STATUS "CMAKE: Finish subdir 'doc' cmake")

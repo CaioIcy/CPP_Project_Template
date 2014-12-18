@@ -1,52 +1,70 @@
 #!/bin/bash
-echo -e "============================================"
-echo -e "-----------------build.sh-------------------"
-pwd
 
+# The possible arguments to pass to this script
+BUILD_DEBUG_ARG="debug"
+BUILD_RELEASE_ARG="release"
+CLEAN_ARG="clean"
+
+#
 BASE_DIR=$(dirname "$(readlink -f $0)")
-echo -e "BASE_DIR == ${BASE_DIR}"
-
-BASE_NAME=$(basename "${BASE_DIR}")
-echo -e "BASE_NAME == ${BASE_NAME}"
-
 BUILD_DIR=${BASE_DIR}/build
-echo -e "BUILD_DIR == ${BUILD_DIR}"
 
-REPORTS_DIR=${BUILD_DIR}/reports
-echo -e "REPORTS_DIR == ${REPORTS_DIR}"
+function usage {
+	echo "The correct usage of this script :"
+	echo "./build.sh ${BUILD_DEBUG_ARG}"
+	echo "./build.sh ${BUILD_RELEASE_ARG}"
+	echo "./build.sh ${CLEAN_ARG}"
+}
 
-mkdir -p ${BUILD_DIR} || exit $?
-pushd ${BUILD_DIR}
+function prepare {
+	# Clean the build folder first
+	rm -f ${BUILD_DIR}/CMakeCache.txt
 
-mkdir -p ${REPORTS_DIR} || exit $?
+	mkdir -p ${BUILD_DIR} || exit $?
+	pushd ${BUILD_DIR}
+}
 
-# debug to get code coverage.
-# TODO OP refer to test binary output from CMake infos
-# TODO OP how have both coverage and release? two sequential builds?
-echo -e "cmake dir is: ******************\n"
-pwd
-cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
-make || exit $?
+function build_debug {
+	echo "Building debug..."
 
-# valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-report.xml test/MyProject_GTest --gtest_output=xml:${REPORTS_DIR}/xunit-report.xml || exit $?
+	prepare
 
-# Code Coverage report (Cobertura) (handled by jenkins)
-# TODO OP configure where .gcna files are stored from CMake and Lib name
-# gcovr -x -r test/CMakeFiles/MyProject_GTest.dir/myproject -f ${BASE_DIR}/src > ${REPORTS_DIR}/gcov-report.xml || exit $?
+	cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
+	make || exit $?
+}
 
-echo -e "3============================================"
+function build_release {
+	echo "Building release..."
 
-# CPP Check report (handled by jenkins)
-# TODO OP configure where includes and source are stored from CMake
-pushd ${BASE_DIR}
-# cppcheck -v --enable=all --xml -Iinclude src 2> ${REPORTS_DIR}/cppcheck-report.xml || exit $?
-popd
+	prepare
 
-echo -e "2============================================"
+	cmake -DCMAKE_BUILD_TYPE=Release ${BASE_DIR} || exit $?
+	make || exit $?
+}
 
-cpack || exit $? # archived by jenkins
+function clean {
+	echo "Cleaning build/ folder"
+	rm -rf build/
+}
 
-popd
+echo "--------------------------------------"
 
-echo -e "1============================================"
-exit $?
+if [ ! -z $1 ] # If the first argument is not empty
+then
+	if [ $1 == "${BUILD_DEBUG_ARG}" ] # If ./build.sh debug
+	then
+		build_debug
+	elif [ $1 == "${BUILD_RELEASE_ARG}" ] # If ./build.sh release
+	then
+		build_release
+	elif [ $1 == "${CLEAN_ARG}" ] # If ./build.sh clean
+	then
+		clean
+	else
+		usage
+	fi
+else
+	usage
+fi
+
+echo "--------------------------------------"
