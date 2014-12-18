@@ -7,10 +7,12 @@ file(GLOB_RECURSE MyCppSources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 set(MySourcesNoMain ${MyCppSources})
 list(REMOVE_ITEM MySourcesNoMain main.cpp)
 
+set(ExecTarget ${MyProjectName}_exec)
+
 add_library(${MyProjectLib} STATIC ${MySourcesNoMain})
 # add_library(${MyProjectLib}Shared SHARED ${MySourcesNoMain})
-add_executable(${MyProjectName} ${MyCppSources})
-target_link_libraries(${MyProjectName} ${MyProjectLib})
+add_executable(${ExecTarget} ${MyCppSources}) # '_exec' suffix to make gitignore's life easy
+target_link_libraries(${ExecTarget} ${MyProjectLib})
 
 # Used to be '/include', but is now '/src' due to remodeling of the project structure
 include_directories(
@@ -18,7 +20,7 @@ include_directories(
 )
 
 # # TODO Review these installation steps, to see if necessary
-# install(TARGETS ${MyProjectName} #${MyProjectName}Shared
+# install(TARGETS ${ExecTarget} #${MyProjectLib}Shared
 # 	ARCHIVE DESTINATION lib
 # 	LIBRARY DESTINATION lib
 # 	COMPONENT libraries
