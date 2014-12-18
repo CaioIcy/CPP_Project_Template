@@ -35,7 +35,6 @@
 *.i*86
 *.x86_64
 *.hex
-*.app
 
 # ------------------- CMAKE -------------------
 
@@ -45,9 +44,12 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 
-# ------------------- PROJECT -------------------
+# ------------------- MISC -------------------
 
 build/*
 *~
-*~/
-*.kate-swp
+
+.*.kate-swp
+.swp.*
+
+*.bak
