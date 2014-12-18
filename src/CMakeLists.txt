@@ -1,15 +1,16 @@
-message(STATUS "CMAKE: Starting subdir 'src' cmake")
+message("*** Starting subdir 'src' cmake")
 
-# Build steps
+message(AUTHOR_WARNING "Getting source files by using glob")
 file(GLOB_RECURSE MyCppSources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
+# Create a list with all cpp sources except for main, so the library doesn't contain it
 set(MySourcesNoMain ${MyCppSources})
 list(REMOVE_ITEM MySourcesNoMain main.cpp)
 
-add_library(${MYPROJECT_LIB} STATIC ${MySourcesNoMain})
-# add_library(${MYPROJECT_LIB}Shared SHARED ${MySourcesNoMain})
-add_executable(${MYPROJECT_NAME} ${MyCppSources})
-target_link_libraries(${MYPROJECT_NAME} ${MYPROJECT_LIB})
+add_library(${MyProjectLib} STATIC ${MySourcesNoMain})
+# add_library(${MyProjectLib}Shared SHARED ${MySourcesNoMain})
+add_executable(${MyProjectName} ${MyCppSources})
+target_link_libraries(${MyProjectName} ${MyProjectLib})
 
 # Used to be '/include', but is now '/src' due to remodeling of the project structure
 include_directories(
@@ -17,7 +18,7 @@ include_directories(
 )
 
 # # TODO Review these installation steps, to see if necessary
-# install(TARGETS ${MYPROJECT_NAME} #${MYPROJECT_NAME}Shared
+# install(TARGETS ${MyProjectName} #${MyProjectName}Shared
 # 	ARCHIVE DESTINATION lib
 # 	LIBRARY DESTINATION lib
 # 	COMPONENT libraries
@@ -28,4 +29,4 @@ include_directories(
 # 	COMPONENT headers
 # )
 
-message(STATUS "CMAKE: Finish subdir 'src' cmake")
+message("*** Finish subdir 'src' cmake")
