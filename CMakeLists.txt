@@ -21,7 +21,7 @@ set(MyProjectLib ${MyProjectName}-lib)
 option(MYPROJECT_TESTS_ENABLED "Enable tests build" ON)
 
 # Debug build info
-set(DEBUG_FLAGS "-O0 -std=c++11 -g -W -Wall -pedantic -ansi -Wextra -Wshadow -Wno-long-long")
+set(DEBUG_FLAGS "-O0 -g -W -Wall -pedantic -ansi -std=c++11 -Wextra -Wshadow -Wno-long-long")
 set(CMAKE_CXX_FLAGS_DEBUG ${DEBUG_FLAGS})
 set(CMAKE_C_FLAGS_DEBUG ${DEBUG_FLAGS})
 
