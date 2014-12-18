@@ -24,26 +24,29 @@ function prepare {
 	pushd ${BUILD_DIR}
 }
 
-function build_debug {
-	echo "Building debug..."
+function build {
+	echo "Preparing project and test building..."
 
-	prepare
+	if [ $1 == "DoDebug" ]
+	then
+		echo "Chosen build: Debug"
+		prepare
+		cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
+	elif [ $1 == "DoRelease" ]
+	then
+		echo "Chosen build: Release"
+		prepare
+		cmake -DCMAKE_BUILD_TYPE=Release ${BASE_DIR} || exit $?
+	else
+		echo "Invalid parameter of '$1'"
+		exit 1
+	fi
 
-	cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
-	make || exit $?
-}
-
-function build_release {
-	echo "Building release..."
-
-	prepare
-
-	cmake -DCMAKE_BUILD_TYPE=Release ${BASE_DIR} || exit $?
 	make || exit $?
 }
 
 function clean {
-	echo "Cleaning build/ folder"
+	echo "Cleaning build/ folder..."
 	rm -rf build/
 }
 
@@ -53,10 +56,10 @@ if [ ! -z $1 ] # If the first argument is not empty
 then
 	if [ $1 == "${BUILD_DEBUG_ARG}" ] # If ./build.sh debug
 	then
-		build_debug
+		build "DoDebug"
 	elif [ $1 == "${BUILD_RELEASE_ARG}" ] # If ./build.sh release
 	then
-		build_release
+		build "DoRelease"
 	elif [ $1 == "${CLEAN_ARG}" ] # If ./build.sh clean
 	then
 		clean
