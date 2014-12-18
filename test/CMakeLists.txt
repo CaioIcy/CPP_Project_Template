@@ -20,15 +20,9 @@ set(GtestTarget ${MyProjectName}_GTest)
 message(AUTHOR_WARNING "Getting test source files by using glob")
 file(GLOB_RECURSE TESTS_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
-message("-aaaaaaaaaaaaaaaaaaaaaaaaaa-")
-message(${TESTS_FILES})
-message("-aaaaaaaaaaaaaaaaaaaaaaaaaa-")
-
 message("*** Adding gtest executable")
 add_executable(${GtestTarget} ${TESTS_FILES})
 target_link_libraries(${GtestTarget} )
-
-# add_dependencies(${GtestTarget} gtest)
 
 target_link_libraries(${GtestTarget}
 	${MyProjectLib}
