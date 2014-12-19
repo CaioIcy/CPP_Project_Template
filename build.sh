@@ -22,6 +22,12 @@ CPPLINT_REPORTS_DIR=${REPORTS_DIR}/cpplint-reports
 CPPCHECK_REPORTS_DIR=${REPORTS_DIR}/cppcheck-reports
 GCOVR_REPORTS_DIR=${REPORTS_DIR}/gcovr-reports
 
+function attention_echo {
+	echo -e "\n******************************************"
+	echo -e "*\t$1 *"
+	echo -e "******************************************\n"
+}
+
 function usage {
 	echo "The correct usage of this script :"
 	echo "./build.sh ${BUILD_DEBUG_ARG}"
@@ -32,24 +38,28 @@ function usage {
 function code_analysis {
 	# TODO make the cppcheck/cpplint htmls a little nicer
 
+	attention_echo "cpplint.py"
 	# Generate cppcheck xml
 	cppcheck --enable=warning,style,performance,portability ${SRC_DIR} --xml-version=2 2> cppcheck-only-result.xml
 	# Generate html from it
 	mkdir -p ${CPPCHECK_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cppcheck-only-result.xml --report-dir=${CPPCHECK_REPORTS_DIR} --source-dir=${BASE_DIR}
 
+	attention_echo "cppcheck"
 	# Generate cppcheck-style xml from cpplint output
 	./${UTILS_DIR}/cpplint.py --filter=-whitespace,-legal ${SRC_DIR}/*.cpp 2>&1| sed 's/"/\&quot;/g' >&1| ./${UTILS_DIR}/cpplint_to_cppcheckxml.py &> cpplint-cppcheck-result.xml
 	# Generate html from it
 	mkdir -p ${CPPLINT_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cpplint-cppcheck-result.xml --report-dir=${CPPLINT_REPORTS_DIR} --source-dir=${BASE_DIR}
 
+	attention_echo "Valgrind"
 	# Project valgrind report
 	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml src/${PROJECT_TARGET}
 
 	# Test suite valgrind report + Test report
 	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml test/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
 
+	attention_echo "gcovr"
 	# Cobertura
 	mkdir -p ${GCOVR_REPORTS_DIR} || exit $?
 	gcovr -r src/CMakeFiles/${PROJECT_TARGET}.dir/ -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
@@ -64,27 +74,27 @@ function prepare {
 }
 
 function build {
-	echo "Preparing project and test building..."
-
 	if [ $1 == "DoDebug" ]
 	then
-		echo "Chosen build: Debug"
 		prepare
+		attention_echo "Using CMake (build mode Debug)"
 		cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
 	elif [ $1 == "DoRelease" ]
 	then
-		echo "Chosen build: Release"
 		prepare
+		attention_echo "Using CMake (build mode Release)"
 		cmake -DCMAKE_BUILD_TYPE=Release ${BASE_DIR} || exit $?
 	else
-		echo "Invalid parameter of '$1'"
+		attention_echo "Invalid parameter of '$1'"
 		exit 1
 	fi
 
+	attention_echo "Running the makefile"
 	make || exit $?
 
 	code_analysis
 
+	attention_echo "Packing with CPack"
 	cpack || exit $?
 }
 
@@ -93,7 +103,7 @@ function clean {
 	rm -rf build/
 }
 
-echo "--------------------------------------"
+attention_echo "Beggining build script"
 
 if [ ! -z $1 ] # If the first argument is not empty
 then
@@ -113,4 +123,4 @@ else
 	usage
 fi
 
-echo "--------------------------------------"
+attention_echo "Finished build script"
