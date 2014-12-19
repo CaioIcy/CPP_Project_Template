@@ -6,6 +6,11 @@ BUILD_RELEASE_ARG="release"
 CLEAN_ARG="clean"
 
 #
+PROJECT_NAME="MyProject"
+PROJECT_TARGET=${PROJECT_NAME}_exec
+GTEST_TARGET=${PROJECT_NAME}_GTest
+
+#
 BASE_DIR=$(dirname "$(readlink -f $0)")
 BUILD_DIR=${BASE_DIR}/build
 SRC_DIR=${BASE_DIR}/src
@@ -19,6 +24,14 @@ function usage {
 	echo "./build.sh ${BUILD_DEBUG_ARG}"
 	echo "./build.sh ${BUILD_RELEASE_ARG}"
 	echo "./build.sh ${CLEAN_ARG}"
+}
+
+function xml_reports {
+	# Project valgrind report
+	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml src/${PROJECT_TARGET}
+
+	# Test suite valgrind report + Test report
+	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml test/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
 }
 
 function code_analysis {
@@ -66,6 +79,7 @@ function build {
 	make || exit $?
 
 	code_analysis
+	xml_reports
 }
 
 function clean {
