@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstdio>
 
 #include <some_module/feature.h>
 #include <another_module/Widget.h>
@@ -19,9 +20,17 @@ int main(int argc, char** argv) {
 	const int testMeaning = widget.life();
 	std::cout << testMeaning << std::endl;
 
-	// Testing C++11
+	// Checking for C++11
 	void* ptr = nullptr;
 	((void)ptr);
+
+	// Generating some bad code for cpplint and cppcheck
+	char* kyop = "W O L O L O L O";
+	printf(kyop);
+	int x;
+	for(int i = 0; i != 10; i++){
+		x = (i%2) + (i*3) - i;
+	}
 
 	return 0;
 }
