@@ -20,6 +20,9 @@ set(MyProjectLib ${MyProjectName}-lib)
 # Options (-Dvarname=ON/OFF)
 option(MYPROJECT_TESTS_ENABLED "Enable tests build" ON)
 
+##
+set(GCOV_FLAGS "-fprofile-arcs -ftest-coverage -fPIC")
+
 # Debug build info
 set(DEBUG_FLAGS "-O0 -g -W -Wall -pedantic -ansi -std=c++11 -Wextra -Wshadow -Wno-long-long")
 set(CMAKE_CXX_FLAGS_DEBUG ${DEBUG_FLAGS})
@@ -29,6 +32,11 @@ set(CMAKE_C_FLAGS_DEBUG ${DEBUG_FLAGS})
 set(RELEASE_FLAGS "-O3 -std=c++11")
 set(CMAKE_CXX_FLAGS ${RELEASE_FLAGS})
 set(CMAKE_C_FLAGS ${RELEASE_FLAGS})
+
+set(CMAKE_CXX_FLAGS_DEBUG ${GCOV_FLAGS})
+set(CMAKE_C_FLAGS_DEBUG ${GCOV_FLAGS})
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG ${GCOV_FLAGS})
+
 
 # TODO OP check how this works on multiple configurations generators
 # available configurations in multiple configurations enabled generators

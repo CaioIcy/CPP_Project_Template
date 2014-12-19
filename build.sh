@@ -13,11 +13,14 @@ GTEST_TARGET=${PROJECT_NAME}_GTest
 #
 BASE_DIR=$(dirname "$(readlink -f $0)")
 BUILD_DIR=${BASE_DIR}/build
+
 SRC_DIR=${BASE_DIR}/src
-UTILS_DIR=../utils
+UTILS_DIR=../utils # is relative to the build/ folder so the python scripts can be used
+
 REPORTS_DIR=${BUILD_DIR}/reports
 CPPLINT_REPORTS_DIR=${REPORTS_DIR}/cpplint-reports
 CPPCHECK_REPORTS_DIR=${REPORTS_DIR}/cppcheck-reports
+GCOVR_REPORTS_DIR=${REPORTS_DIR}/gcovr-reports
 
 function usage {
 	echo "The correct usage of this script :"
@@ -26,28 +29,30 @@ function usage {
 	echo "./build.sh ${CLEAN_ARG}"
 }
 
-function xml_reports {
-	# Project valgrind report
-	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml src/${PROJECT_TARGET}
-
-	# Test suite valgrind report + Test report
-	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml test/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
-}
-
 function code_analysis {
-	# TODO make the htmls a little nicer
+	# TODO make the cppcheck/cpplint htmls a little nicer
 
 	# Generate cppcheck xml
 	cppcheck --enable=warning,style,performance,portability ${SRC_DIR} --xml-version=2 2> cppcheck-only-result.xml
 	# Generate html from it
-	mkdir -p ${CPPLINT_REPORTS_DIR} || exit $?
+	mkdir -p ${CPPCHECK_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cppcheck-only-result.xml --report-dir=${CPPCHECK_REPORTS_DIR} --source-dir=${BASE_DIR}
 
 	# Generate cppcheck-style xml from cpplint output
 	./${UTILS_DIR}/cpplint.py --filter=-whitespace,-legal ${SRC_DIR}/*.cpp 2>&1| sed 's/"/\&quot;/g' >&1| ./${UTILS_DIR}/cpplint_to_cppcheckxml.py &> cpplint-cppcheck-result.xml
 	# Generate html from it
-	mkdir -p ${CPPCHECK_REPORTS_DIR} || exit $?
+	mkdir -p ${CPPLINT_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cpplint-cppcheck-result.xml --report-dir=${CPPLINT_REPORTS_DIR} --source-dir=${BASE_DIR}
+
+	# Project valgrind report
+	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml src/${PROJECT_TARGET}
+
+	# Test suite valgrind report + Test report
+	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml test/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
+
+	# Cobertura
+	mkdir -p ${GCOVR_REPORTS_DIR} || exit $?
+	gcovr -r src/CMakeFiles/${PROJECT_TARGET}.dir/ -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
 }
 
 function prepare {
@@ -79,7 +84,6 @@ function build {
 	make || exit $?
 
 	code_analysis
-	xml_reports
 }
 
 function clean {
