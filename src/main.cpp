@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 	std::cout << testString << std::endl;
 
 	Widget widget;
-	const int testMeaning = widget.life();
+	const int testMeaning = widget.life(69);
 	std::cout << testMeaning << std::endl;
 
 	// Checking for C++11

@@ -8,6 +8,12 @@ Widget::~Widget() {
 
 }
 
-int Widget::life() const {
-	return 42;
+int Widget::life(const int number) const {
+	int meaning = 42;
+
+	if(number != 0) {
+		meaning = (number/number) + 41;
+	}
+
+	return meaning;
 }

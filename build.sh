@@ -84,6 +84,8 @@ function build {
 	make || exit $?
 
 	code_analysis
+
+	cpack || exit $?
 }
 
 function clean {

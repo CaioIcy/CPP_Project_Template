@@ -1,12 +1,14 @@
 #pragma once
 
 class Widget {
+
 	public:
 		explicit Widget();
-		~Widget();
+		virtual ~Widget();
 
-		/*!
-		* <p>Returns the meaning of life.</p>
+		/**
+		* @param number : Don't ask me.
+		* @return The meaning of life.
 		*/
-		int life() const;
+		int life(const int number) const;
 };

@@ -13,9 +13,10 @@ endif()
 
 # Setting some project information
 set(MyProjectName "MyProject")
-set(MyProjectVersion "0.0.7-${BUILD_NUMBER}")
+set(MyProjectVersion "v${BUILD_NUMBER}")
 set(MyProjectBrief "${MyProjectName} is a toy project to illustrate a full featured C++ CMake project.")
 set(MyProjectLib ${MyProjectName}-lib)
+set(MyProjectVendor "IcyWare")
 
 # Options (-Dvarname=ON/OFF)
 option(MYPROJECT_TESTS_ENABLED "Enable tests build" ON)
@@ -47,8 +48,9 @@ set(CMAKE_CONFIGURATION_TYPES Debug Release)
 add_subdirectory(src)
 
 # Used by documentation home and in packaging
-set(ReadmeFile ${PROJECT_SOURCE_DIR}/README.md)
-set(LicenseFile ${PROJECT_SOURCE_DIR}/LICENSE)
+set(ReadmeFile ${PROJECT_SOURCE_DIR}/doc/README.txt) # README file that goes into the package. NOT git's readme
+set(LicenseFile ${PROJECT_SOURCE_DIR}/LICENSE) # Legal info file
+set(WelcomeFile ${PROJECT_SOURCE_DIR}/doc/WELCOME.md) # Doxygen main page file
 
 # Generate documentation
 if(NOT DOC_DISABLED)
@@ -62,20 +64,43 @@ install(FILES
 	DESTINATION .
 )
 
-# Packaging steps
-#set(CPACK_SYSTEM_NAME ${CMAKE_SYSTEM_NAME}_${CMAKE_SYSTEM_PROCESSOR})
-set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
-set(CPACK_PACKAGE_DESCRIPTION_FILE ${ReadmeFile})
-set(CPACK_RESOURCE_FILE_LICENSE ${LicenseFile})
-set(CPACK_GENERATOR "ZIP") #;TGZ;STGZ")
-set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
-set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
-set(CPACK_COMPONENTS_ALL libraries headers)
-set(CPACK_PACKAGE_NAME ${MyProjectName})
-set(CPACK_PACKAGE_VENDOR "MyVendor")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${MyProjectName} - ${MyProjectBrief}")
-set(CPACK_PACKAGE_VERSION ${MyProjectVersion})
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "TODO")
+# # Basic CPack settings
+set(CPACK_GENERATOR 					"ZIP")
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY  	0)
+# set(CPACK_INSTALL_CMAKE_PROJECTS  		NOTUSED_CHANGEME)
+set(CPACK_PACKAGE_DESCRIPTION_FILE  	${ReadmeFile})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY	"${MyProjectName} - ${MyProjectBrief}")
+# set(CPACK_PACKAGE_EXECUTABLES  			NOTUSED_CHANGEME)
+set(CPACK_PACKAGE_FILE_NAME  			"${MyProjectName}-${CMAKE_SYSTEM_NAME}")
+# set(CPACK_PACKAGE_INSTALL_DIRECTORY  	NOTUSED_CHANGEME)
+# set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY  NOTUSED_CHANGEME)
+set(CPACK_PACKAGE_NAME  				${MyProjectName})
+set(CPACK_PACKAGE_VENDOR  				${MyProjectVendor})
+# set(CPACK_PACKAGE_VERSION_MAJOR  		NOTUSED_CHANGEME)
+# set(CPACK_PACKAGE_VERSION_MINOR 		NOTUSED_CHANGEME)
+# set(CPACK_PACKAGE_VERSION_PATCH  		NOTUSED_CHANGEME)
+# set(CPACK_PROJECT_CONFIG_FILE  			NOTUSED_CHANGEME)
+# set(CPACK_SOURCE_GENERATOR  			NOTUSED_CHANGEME)
+# set(CPACK_SOURCE_IGNORE_FILES  			NOTUSED_CHANGEME)
+# set(CPACK_SOURCE_PACKAGE_FILE_NAME  	NOTUSED_CHANGEME)
+# set(CPACK_SOURCE_STRIP_FILES  			NOTUSED_CHANGEME)
+# set(CPACK_STRIP_FILES  					NOTUSED_CHANGEME)
+set(CPACK_SYSTEM_NAME  					"${CMAKE_SYSTEM_NAME}_CMAKE_SYSTEM_PROCESSOR")
+
+# # Advanced CPack settings
+# set(CPACK_CMAKE_GENERATOR  				NOTUSED_CHANGEME)
+set(CPACK_RESOURCE_FILE_LICENSE  		${LicenseFile})
+# set(CPACK_RESOURCE_FILE_README  		NOTUSED_CHANGEME)
+set(CPACK_RESOURCE_FILE_WELCOME  		${WelcomeFile})
+# set(CPACK_PACKAGE_VERSION  				NOTUSED_CHANGEME)
+# set(CPACK_TOPLEVEL_TAG  				NOTUSED_CHANGEME)
+# set(CPACK_INSTALL_COMMANDS  			NOTUSED_CHANGEME)
+# set(CPACK_INSTALL_SCRIPT  				NOTUSED_CHANGEME)
+# set(CPACK_INSTALLED_DIRECTORIES  		NOTUSED_CHANGEME)
+# set(CPACK_MONOLITHIC_INSTALL  			NOTUSED_CHANGEME)
+# set(CPACK_PACKAGING_INSTALL_PREFIX  	NOTUSED_CHANGEME)
+# set(CPACK_OUTPUT_FILE_PREFIX  			NOTUSED_CHANGEME)
+
 
 # must be executed after CPACK properties definition
 message("*** Including CPack")

@@ -1,23 +1,17 @@
 #include <some_module/feature.h>
 
-using namespace some_module;
+some_module::Feature::Feature() {
+	/// @todo Something you need to do later.
+}
 
-Feature::Feature()
-{
+some_module::Feature::~Feature() {
 
 }
 
-Feature::~Feature()
-{
-
+std::string some_module::Feature::toString() const {
+	return "Feature";
 }
 
-std::string Feature::toString() const
-{
-  return "Feature";
-}
-
-std::string Feature::work() const
-{
-  return "work";
+std::string some_module::Feature::work() const {
+	return "work";
 }

@@ -19,14 +19,13 @@ include_directories(
 	${PROJECT_SOURCE_DIR}/src
 )
 
-# # TODO Review these installation steps, to see if necessary
-# install(TARGETS ${ExecTarget} #${MyProjectLib}Shared
-# 	ARCHIVE DESTINATION lib
-# 	LIBRARY DESTINATION lib
-# 	COMPONENT libraries
-# )
+# Files that are packed with CPack
+install(TARGETS ${ExecTarget} #${MyProjectLib}Shared
+	RUNTIME DESTINATION bin
+	COMPONENT executables
+)
 
-# install(DIRECTORY ${PROJECT_SOURCE_DIR}/include
+# install(DIRECTORY ${PROJECT_SOURCE_DIR}/src
 # 	DESTINATION .
 # 	COMPONENT headers
 # )

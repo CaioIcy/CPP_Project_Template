@@ -2,23 +2,23 @@
 
 #include <string>
 
-namespace some_module
-{
-class Feature
-{
-public:
-  explicit Feature();
+namespace some_module {
 
-  virtual ~Feature();
+class Feature {
 
-  /*!
-   * <p>Returns "Feature".</p>
-   */
-  std::string toString() const;
+	public:
+		explicit Feature();
+		virtual ~Feature();
 
-  /*!
-   * <p>Returns "work".</p>
-   */
-  std::string work() const;
+		/**
+		* @return "Feature"
+		*/
+		std::string toString() const;
+
+		/**
+		* @return "work"
+		*/
+		std::string work() const;
 };
-}
+
+} // namespace some_module
