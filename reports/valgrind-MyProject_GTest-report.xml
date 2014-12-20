@@ -12,8 +12,8 @@
   <line>Command: test/MyProject_GTest --gtest_output=xml:/home/travis/build/CaioIcy/cpp-cmake-template/build/reports/gtest-report.xml</line>
 </preamble>
 
-<pid>15943</pid>
-<ppid>15699</ppid>
+<pid>15791</pid>
+<ppid>15547</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -31,13 +31,13 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.045 </time>
+  <time>00:00:00:00.048 </time>
 </status>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:01.250 </time>
+  <time>00:00:00:01.171 </time>
 </status>
 
 <errorcounts>

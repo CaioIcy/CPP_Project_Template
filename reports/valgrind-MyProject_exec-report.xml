@@ -12,8 +12,8 @@
   <line>Command: src/MyProject_exec</line>
 </preamble>
 
-<pid>15940</pid>
-<ppid>15699</ppid>
+<pid>15788</pid>
+<ppid>15547</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -30,13 +30,13 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.040 </time>
+  <time>00:00:00:00.043 </time>
 </status>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:00.731 </time>
+  <time>00:00:00:00.737 </time>
 </status>
 
 <errorcounts>
