@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<valgrindoutput>
+
+<protocolversion>4</protocolversion>
+<protocoltool>memcheck</protocoltool>
+
+<preamble>
+  <line>Memcheck, a memory error detector</line>
+  <line>Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.</line>
+  <line>Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info</line>
+  <line>Command: test/MyProject_GTest --gtest_output=xml:/home/travis/build/CaioIcy/cpp-cmake-template/build/reports/gtest-report.xml</line>
+</preamble>
+
+<pid>15943</pid>
+<ppid>15699</ppid>
+<tool>memcheck</tool>
+
+<args>
+  <vargv>
+    <exe>/usr/bin/valgrind.bin</exe>
+    <arg>--suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp</arg>
+    <arg>--xml=yes</arg>
+    <arg>--xml-file=/home/travis/build/CaioIcy/cpp-cmake-template/build/reports/valgrind-MyProject_GTest-report.xml</arg>
+  </vargv>
+  <argv>
+    <exe>test/MyProject_GTest</exe>
+    <arg>--gtest_output=xml:/home/travis/build/CaioIcy/cpp-cmake-template/build/reports/gtest-report.xml</arg>
+  </argv>
+</args>
+
+<status>
+  <state>RUNNING</state>
+  <time>00:00:00:00.045 </time>
+</status>
+
+
+<status>
+  <state>FINISHED</state>
+  <time>00:00:00:01.250 </time>
+</status>
+
+<errorcounts>
+</errorcounts>
+
+<suppcounts>
+  <pair>
+    <count>2</count>
+    <name>dl-hack3-cond-1</name>
+  </pair>
+</suppcounts>
+
+</valgrindoutput>
+

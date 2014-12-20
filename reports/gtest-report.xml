@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" timestamp="2014-12-20T04:15:12" time="0.107" name="AllTests">
+  <testsuite name="Feature_toString" tests="1" failures="0" disabled="0" errors="0" time="0.034">
+    <testcase name="toString" status="run" time="0.018" classname="Feature_toString" />
+  </testsuite>
+  <testsuite name="Feature_work" tests="1" failures="0" disabled="0" errors="0" time="0.004">
+    <testcase name="work" status="run" time="0.004" classname="Feature_work" />
+  </testsuite>
+  <testsuite name="Widget_life" tests="2" failures="0" disabled="0" errors="0" time="0.008">
+    <testcase name="Zero" status="run" time="0.004" classname="Widget_life" />
+    <testcase name="Non_Zero" status="run" time="0.003" classname="Widget_life" />
+  </testsuite>
+</testsuites>
