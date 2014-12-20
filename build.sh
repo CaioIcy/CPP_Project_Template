@@ -33,6 +33,7 @@ function usage {
 	echo "./build.sh ${BUILD_DEBUG_ARG}"
 	echo "./build.sh ${BUILD_RELEASE_ARG}"
 	echo "./build.sh ${CLEAN_ARG}"
+	exit 2
 }
 
 function code_analysis {
@@ -96,6 +97,8 @@ function build {
 
 	attention_echo "Packing with CPack"
 	cpack || exit $?
+
+	exit 0
 }
 
 function clean {
