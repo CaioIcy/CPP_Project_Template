@@ -98,6 +98,7 @@ function build {
 	attention_echo "Packing with CPack"
 	cpack || exit $?
 
+	popd
 	exit 0
 }
 
