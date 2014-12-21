@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "MyProject", "index.html", [
+  [ "My_Project", "index.html", [
     [ "Related Pages", "pages.html", "pages" ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
