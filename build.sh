@@ -5,16 +5,19 @@ BUILD_DEBUG_ARG="debug"
 BUILD_RELEASE_ARG="release"
 CLEAN_ARG="clean"
 
-#
-PROJECT_NAME="MyProject"
+# Project and target names
+PROJECT_NAME="My_Project" # Try not to put spaces in this name
 PROJECT_TARGET=${PROJECT_NAME}_exec
 GTEST_TARGET=${PROJECT_NAME}_GTest
 
-#
+# Some directories
 BASE_DIR=$(dirname "$(readlink -f $0)")
 BUILD_DIR=${BASE_DIR}/build
 
 SRC_DIR=${BASE_DIR}/src
+BUILD_SRC_DIR=${BUILD_DIR}/src
+BUILD_TEST_DIR=${BUILD_DIR}/test
+GCOVR_DIR=${BUILD_SRC_DIR}/CMakeFiles/${PROJECT_TARGET}.dir/
 UTILS_DIR=../utils # is relative to the build/ folder so the python scripts can be used
 
 REPORTS_DIR=${BUILD_DIR}/reports
@@ -37,14 +40,13 @@ function usage {
 }
 
 function code_analysis {
-	# TODO make the cppcheck/cpplint htmls a little nicer
-
 	attention_echo "cppcheck"
 	# Generate cppcheck xml
 	cppcheck -v --enable=all ${SRC_DIR} -I${SRC_DIR} --xml-version=2 2> cppcheck-only-result.xml
 	# Generate html from it
 	mkdir -p ${CPPCHECK_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cppcheck-only-result.xml --report-dir=${CPPCHECK_REPORTS_DIR} --source-dir=${BASE_DIR}
+	sed -i 's/\[project\ name\]/\['$PROJECT_NAME'\]/g' ${CPPCHECK_REPORTS_DIR}/index.html
 
 	attention_echo "cpplint.py"
 	# Generate cppcheck-style xml from cpplint output
@@ -52,18 +54,24 @@ function code_analysis {
 	# Generate html from it
 	mkdir -p ${CPPLINT_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cpplint-cppcheck-result.xml --report-dir=${CPPLINT_REPORTS_DIR} --source-dir=${BASE_DIR}
+	# Change Cppcheck things to cpplint
+	sed -i 's/Cppcheck\ \-\ HTML\ report\ -\ \[project\ name\]/cpplint\ \-\ HTML\ report\ \-\ \['${PROJECT_NAME}'\]/g' ${CPPLINT_REPORTS_DIR}/index.html
+	sed -i 's/Cppcheck\ report\ \-\ \[project\ name\]/cpplint report\ \-\ \['${PROJECT_NAME}'\]/g' ${CPPLINT_REPORTS_DIR}/index.html
+	sed -i 's/Cppcheck\ \ \-\ a\ tool\ for\ static\ C\/C++\ code\ analysis/cpplint\ \ \-\ an\ open\ source\ lint\-like\ tool\ from\ Google/g' ${CPPLINT_REPORTS_DIR}/index.html
+	sed -i 's/http:\/\/cppcheck.sourceforge.net/http:\/\/google\-styleguide.googlecode.com\/svn\/trunk\/cpplint\/cpplint.py/g' ${CPPLINT_REPORTS_DIR}/index.html
+	sed -i 's/IRC: <a href=\"irc:\/\/irc.freenode.net\/cppcheck\">irc:\/\/irc.freenode.net\/cppcheck<\/a>/\ /g' ${CPPLINT_REPORTS_DIR}/index.html
 
 	attention_echo "Valgrind"
 	# Project valgrind report
-	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml src/${PROJECT_TARGET}
+	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml ${BUILD_SRC_DIR}/${PROJECT_TARGET}
 
 	# Test suite valgrind report + Test report
-	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml test/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
+	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml ${BUILD_TEST_DIR}/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
 
 	attention_echo "gcovr"
 	# Cobertura
 	mkdir -p ${GCOVR_REPORTS_DIR} || exit $?
-	gcovr -r src/CMakeFiles/${PROJECT_TARGET}.dir/ -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
+	gcovr -r ${GCOVR_DIR} -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
 }
 
 function prepare {

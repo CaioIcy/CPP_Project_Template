@@ -12,7 +12,7 @@ else()
 endif()
 
 # Setting some project information
-set(MyProjectName "MyProject")
+set(MyProjectName "My_Project") # Try not to put spaces in this name (and make sure its the same as build.sh)
 set(MyProjectVersion "v${BUILD_NUMBER}")
 set(MyProjectBrief "${MyProjectName} is a toy project to illustrate a full featured C++ CMake project.")
 set(MyProjectLib ${MyProjectName}-lib)
