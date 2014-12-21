@@ -22,4 +22,4 @@ env:
   global:
     - secure: cv9q6yST1rcFv0Urc6UuWESqOFz+ZDWChUjfbCrL1hHa8B5osFtyBnjvhtK7noXaIsVDBmaOWLrcISfWrxHTVMvNBcxf0GmkjNeDzskOC1z+ft02Jw1pE0DGOYWwNwiAJe35wp0Qp0auJWQGAWxdY64LXGukhsoBkM6Uv9fnvCk=
     - GH_USR=CaioIcy
-    - GH_REF=github.com/CaioIcy/cpp-cmake-template.git
+    - GH_REF=github.com/CaioIcy/CPP_Project_Template.git

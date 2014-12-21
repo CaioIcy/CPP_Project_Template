@@ -1,5 +1,5 @@
 # C++ Project Template
-[![Travis CI Build Status](https://travis-ci.org/CaioIcy/cpp-cmake-template.svg?branch=master)](https://travis-ci.org/CaioIcy/cpp-cmake-template)
+[![Travis CI Build Status](https://travis-ci.org/CaioIcy/CPP_Project_Template.svg?branch=master)](https://travis-ci.org/CaioIcy/CPP_Project_Template)
 
 Forked from [opatry's template]:
 > "This project is used as a basis for any C++ project built with CMake. Its purpose is to provide a full featured (code coverage, unit tests, static analysis, …) and cross platform build. It tries to use CMake in the most effective way."
@@ -56,6 +56,6 @@ Through [dmonopoly's project] I learned how to include it with my project (so th
 
 See [LICENSE](LICENSE) file.
 
-[Project Webpage]:https://caioicy.github.io/cpp-cmake-template/
-[opatry's template]:https://github.com/opatry/cpp-cmake-template
+[Project Webpage]:https://caioicy.github.io/CPP_Project_Template/
+[opatry's template]:https://github.com/opatry/CPP_Project_Template
 [dmonopoly's project]:https://github.com/dmonopoly/gtest-cmake-example
