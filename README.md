@@ -1,8 +1,8 @@
-# C++ / CMake / gtest Project Template
+# C++ Project Template
 [![Travis CI Build Status](https://travis-ci.org/CaioIcy/cpp-cmake-template.svg?branch=master)](https://travis-ci.org/CaioIcy/cpp-cmake-template)
 
 Forked from [opatry's template]:
-> This project is used as a basis for any C++ project built with CMake. Its purpose is to provide a full featured (code coverage, unit tests, static analysis, …) and cross platform build. It tries to use CMake in the most effective way.
+> "This project is used as a basis for any C++ project built with CMake. Its purpose is to provide a full featured (code coverage, unit tests, static analysis, …) and cross platform build. It tries to use CMake in the most effective way."
 
 # What is contained
 
@@ -19,7 +19,15 @@ Technology     | Description
 
 # Dependencies
 
-See the **.travis.yml** file to see what it downloads, I'll list them here later.
+From **.travis.yml** (_Ubuntu_):  
+```
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+sudo apt-get update -qq
+sudo apt-get install -qq cmake doxygen g++-4.8 python-pip cppcheck valgrind
+sudo pip install Pygments
+sudo pip install gcovr
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+```
 
 # Building
 
@@ -35,9 +43,9 @@ This will produce:
 
 # Webpage
 
-It is available here: [Project Webpage]  
-All the documentation and reports are automatically published to it with **Travis-CI**, using the **utils/publish_to_ghpages.sh** script.  
-The idea is that every project derived from this template can also has this format of auto-publishing stuff.
+The GitHub webpage is available here: [Project Webpage]  
+
+All the documentation and reports are automatically published to it with **Travis-CI**, using the **utils/publish_to_ghpages.sh** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
 
 # Notes
 
@@ -46,7 +54,7 @@ Through [dmonopoly's project] I learned how to include it with my project (so th
 
 #License
 
-See LICENSE file.
+See [LICENSE](LICENSE) file.
 
 [Project Webpage]:https://caioicy.github.io/cpp-cmake-template/
 [opatry's template]:https://github.com/opatry/cpp-cmake-template
