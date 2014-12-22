@@ -1,13 +1,13 @@
 #include "gtest/gtest.h"
 #include <another_module/Widget.h>
 
-TEST(Widget_life, Zero)
+TEST(Widget, LifeZero)
 {
   Widget mywidget;
   ASSERT_EQ(42, mywidget.life(0));
 }
 
-TEST(Widget_life, Non_Zero)
+TEST(Widget, LifeNonZero)
 {
   Widget mywidget;
   ASSERT_EQ(42, mywidget.life(69));
