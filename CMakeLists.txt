@@ -1,14 +1,14 @@
-cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 
 project(MyProject)
 
 message("*** Starting root cmake")
 
 # Setting the build number
-if($ENV{BUILD_NUMBER})
-	set(BUILD_NUMBER $ENV{BUILD_NUMBER})
+if($ENV{TRAVIS_BUILD_NUMBER})
+	set(BUILD_NUMBER $ENV{TRAVIS_BUILD_NUMBER}) # Travis-CI
 else()
-	set(BUILD_NUMBER 0)
+	set(BUILD_NUMBER "?")
 endif()
 
 # Setting some project information
@@ -17,6 +17,9 @@ set(MyProjectVersion "v${BUILD_NUMBER}")
 set(MyProjectBrief "${MyProjectName} is a toy project to illustrate a full featured C++ CMake project.")
 set(MyProjectLib ${MyProjectName}-lib)
 set(MyProjectVendor "IcyWare")
+
+# 
+set(ExternalLibsDir "externals")
 
 # Options (-Dvarname=ON/OFF)
 option(MYPROJECT_TESTS_ENABLED "Enable tests build" ON)
