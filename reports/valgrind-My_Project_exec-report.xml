@@ -12,8 +12,8 @@
   <line>Command: /home/travis/build/CaioIcy/CPP_Project_Template/build/src/My_Project_exec</line>
 </preamble>
 
-<pid>15920</pid>
-<ppid>15669</ppid>
+<pid>15953</pid>
+<ppid>15710</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -30,13 +30,13 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.041 </time>
+  <time>00:00:00:00.043 </time>
 </status>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:00.710 </time>
+  <time>00:00:00:00.749 </time>
 </status>
 
 <errorcounts>
