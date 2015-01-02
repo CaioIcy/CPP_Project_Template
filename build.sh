@@ -1,104 +1,122 @@
 #!/bin/bash
+set -o posix
+
+## Edit your projects name here, try to not put spaces
+NAME_PROJECT="My_Project"
 
 # The possible arguments to pass to this script
-BUILD_DEBUG_ARG="debug"
-BUILD_RELEASE_ARG="release"
-CLEAN_ARG="clean"
+ARG_BUILD_DEBUG="debug"
+ARG_BUILD_RELEASE="release"
+ARG_CLEAN="clean"
 
-# Project and target names
-PROJECT_NAME="My_Project" # Try not to put spaces in this name
-PROJECT_TARGET=${PROJECT_NAME}_exec
-GTEST_TARGET=${PROJECT_NAME}_GTest
+# Target names
+TARGET_PROJECT=${NAME_PROJECT}_exec
+TARGET_GTEST=${NAME_PROJECT}_GTest
 
 # Some directories
-BASE_DIR=$(dirname "$(readlink -f $0)")
-BUILD_DIR=${BASE_DIR}/build
+DIR_PROJECT_ROOT=$(dirname "$(readlink -f $0)")
+DIR_BUILD=${DIR_PROJECT_ROOT}/build
+DIR_SRC=${DIR_PROJECT_ROOT}/src
+DIR_BUILD_SRC=${DIR_BUILD}/src
+DIR_BUILD_TEST=${DIR_BUILD}/test
+DIR_REPORTS=${DIR_BUILD}/reports
+DIR_REPORTS_CPPLINT=${DIR_REPORTS}/cpplint-reports
+DIR_REPORTS_CPPCHECK=${DIR_REPORTS}/cppcheck-reports
+DIR_REPORTS_GCOVR=${DIR_REPORTS}/gcovr-reports
+DIR_GCOVR_FILES=${DIR_BUILD_SRC}/CMakeFiles/${TARGET_PROJECT}.dir/
+DIR_UTILS=${DIR_PROJECT_ROOT}/utils
 
-SRC_DIR=${BASE_DIR}/src
-BUILD_SRC_DIR=${BUILD_DIR}/src
-BUILD_TEST_DIR=${BUILD_DIR}/test
-GCOVR_DIR=${BUILD_SRC_DIR}/CMakeFiles/${PROJECT_TARGET}.dir/
-UTILS_DIR=../utils # is relative to the build/ folder so the python scripts can be used
+function do_cppcheck {
+	attention_echo "cppcheck"
 
-REPORTS_DIR=${BUILD_DIR}/reports
-CPPLINT_REPORTS_DIR=${REPORTS_DIR}/cpplint-reports
-CPPCHECK_REPORTS_DIR=${REPORTS_DIR}/cppcheck-reports
-GCOVR_REPORTS_DIR=${REPORTS_DIR}/gcovr-reports
+	mkdir -p ${DIR_REPORTS_CPPCHECK} || exit $?
 
-function attention_echo {
-	echo -e "\n******************************************"
-	echo -e "*\t$1 *"
-	echo -e "******************************************\n"
+	# Generate cppcheck xml
+	cppcheck -v --enable=all ${DIR_SRC} -I${DIR_SRC} --xml-version=2 2> cppcheck-only-result.xml
+
+	# Generate html from it
+	${DIR_UTILS}/cppcheck-htmlreport.py\
+		--file=cppcheck-only-result.xml\
+		--report-dir=${DIR_REPORTS_CPPCHECK}\
+		--source-dir=${DIR_PROJECT_ROOT}\
+		--title=${NAME_PROJECT}
 }
 
-function usage {
-	echo "The correct usage of this script :"
-	echo "./build.sh ${BUILD_DEBUG_ARG}"
-	echo "./build.sh ${BUILD_RELEASE_ARG}"
-	echo "./build.sh ${CLEAN_ARG}"
-	exit 2
+function do_cpplint {
+	attention_echo "cpplint.py"
+
+	mkdir -p ${DIR_REPORTS_CPPLINT} || exit $?
+
+	# Generate cppcheck-style xml from cpplint output
+	${DIR_UTILS}/cpplint.py --filter=-whitespace,-legal ${DIR_SRC}/*.cpp 2>&1|\
+		sed 's/"/\&quot;/g' >&1| sed 's/</\&lt;/g' >&1| sed 's/>/\&gt;/g' >&1|\
+		sed "s/'/\&apos;/g" >&1| sed 's/\&/\&amp;/g' >&1|\
+		${DIR_UTILS}/cpplint_to_cppcheckxml.py &> cpplint-cppcheck-result.xml
+
+	# Generate html from it
+	${DIR_UTILS}/cppcheck-htmlreport.py\
+		--file=cpplint-cppcheck-result.xml\
+		--report-dir=${DIR_REPORTS_CPPLINT}\
+		--source-dir=${DIR_PROJECT_ROOT}\
+		--title=${NAME_PROJECT}
+
+	# Change Cppcheck things to cpplint
+	sed -i 's/Cppcheck\ \-\ HTML\ report/cpplint\ \-\ HTML\ report/g' ${DIR_REPORTS_CPPLINT}/index.html
+	sed -i 's/Cppcheck\ report\ \-\/cpplint report\ \-\/g' ${DIR_REPORTS_CPPLINT}/index.html
+	sed -i 's/Cppcheck\ \ \-\ a\ tool\ for\ static\ C\/C++\ code\ analysis/cpplint\ \ \-\ an\ open\ source\ lint\-like\ tool\ from\ Google/g' ${DIR_REPORTS_CPPLINT}/index.html
+	sed -i 's/http:\/\/cppcheck.sourceforge.net/http:\/\/google\-styleguide.googlecode.com\/svn\/trunk\/cpplint\/cpplint.py/g' ${DIR_REPORTS_CPPLINT}/index.html
+	sed -i 's/IRC: <a href=\"irc:\/\/irc.freenode.net\/cppcheck\">irc:\/\/irc.freenode.net\/cppcheck<\/a>/\ /g' ${DIR_REPORTS_CPPLINT}/index.html
+}
+
+function do_valgrind {
+	attention_echo "Valgrind"
+
+	# Project valgrind report
+	valgrind --xml=yes\
+		--xml-file=${DIR_REPORTS}/valgrind-${TARGET_PROJECT}-report.xml\
+		${DIR_BUILD_SRC}/${TARGET_PROJECT}
+
+	# Test suite valgrind report + Test report
+	valgrind --xml=yes\
+		--xml-file=${DIR_REPORTS}/valgrind-${TARGET_GTEST}-report.xml\
+		${DIR_BUILD_TEST}/${TARGET_GTEST}\
+		--gtest_output=xml:${DIR_REPORTS}/gtest-report.xml
+}
+
+function do_gcovr {
+	attention_echo "gcovr"
+
+	mkdir -p ${DIR_REPORTS_GCOVR} || exit $?
+
+	gcovr --verbose\
+		--root=${DIR_GCOVR_FILES}\
+		--filter=${DIR_PROJECT_ROOT}/src\
+		--html --html-details --output=${DIR_REPORTS_GCOVR}/index.html
 }
 
 function code_analysis {
-	attention_echo "cppcheck"
-	# Generate cppcheck xml
-	cppcheck -v --enable=all ${SRC_DIR} -I${SRC_DIR} --xml-version=2 2> cppcheck-only-result.xml
-	# Generate html from it
-	mkdir -p ${CPPCHECK_REPORTS_DIR} || exit $?
-	./${UTILS_DIR}/cppcheck-htmlreport.py\
-		--file=cppcheck-only-result.xml\
-		--report-dir=${CPPCHECK_REPORTS_DIR}\
-		--source-dir=${BASE_DIR}
-	sed -i 's/\[project\ name\]/\['$PROJECT_NAME'\]/g' ${CPPCHECK_REPORTS_DIR}/index.html
-
-	attention_echo "cpplint.py"
-	# Generate cppcheck-style xml from cpplint output
-	./${UTILS_DIR}/cpplint.py --filter=-whitespace,-legal ${SRC_DIR}/*.cpp 2>&1|\
-		sed 's/"/\&quot;/g' >&1| sed 's/</\&lt;/g' >&1| sed 's/>/\&gt;/g' >&1|\
-		sed "s/'/\&apos;/g" >&1| sed 's/\&/\&amp;/g' >&1|\
-		./${UTILS_DIR}/cpplint_to_cppcheckxml.py &> cpplint-cppcheck-result.xml
-	# Generate html from it
-	mkdir -p ${CPPLINT_REPORTS_DIR} || exit $?
-	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cpplint-cppcheck-result.xml --report-dir=${CPPLINT_REPORTS_DIR} --source-dir=${BASE_DIR}
-	# Change Cppcheck things to cpplint
-	sed -i 's/Cppcheck\ \-\ HTML\ report\ -\ \[project\ name\]/cpplint\ \-\ HTML\ report\ \-\ \['${PROJECT_NAME}'\]/g' ${CPPLINT_REPORTS_DIR}/index.html
-	sed -i 's/Cppcheck\ report\ \-\ \[project\ name\]/cpplint report\ \-\ \['${PROJECT_NAME}'\]/g' ${CPPLINT_REPORTS_DIR}/index.html
-	sed -i 's/Cppcheck\ \ \-\ a\ tool\ for\ static\ C\/C++\ code\ analysis/cpplint\ \ \-\ an\ open\ source\ lint\-like\ tool\ from\ Google/g' ${CPPLINT_REPORTS_DIR}/index.html
-	sed -i 's/http:\/\/cppcheck.sourceforge.net/http:\/\/google\-styleguide.googlecode.com\/svn\/trunk\/cpplint\/cpplint.py/g' ${CPPLINT_REPORTS_DIR}/index.html
-	sed -i 's/IRC: <a href=\"irc:\/\/irc.freenode.net\/cppcheck\">irc:\/\/irc.freenode.net\/cppcheck<\/a>/\ /g' ${CPPLINT_REPORTS_DIR}/index.html
-
-	attention_echo "Valgrind"
-	# Project valgrind report
-	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${PROJECT_TARGET}-report.xml ${BUILD_SRC_DIR}/${PROJECT_TARGET}
-
-	# Test suite valgrind report + Test report
-	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml ${BUILD_TEST_DIR}/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
-
-	attention_echo "gcovr"
-	# Cobertura
-	mkdir -p ${GCOVR_REPORTS_DIR} || exit $?
-	gcovr -r ${GCOVR_DIR} -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
-}
-
-function prepare {
-	# Clean the build folder first
-	rm -f ${BUILD_DIR}/CMakeCache.txt
-
-	mkdir -p ${BUILD_DIR} || exit $?
-	pushd ${BUILD_DIR}
+	do_cppcheck
+	do_cpplint
+	do_valgrind
+	do_gcovr
 }
 
 function build {
-	if [ $1 == "DoDebug" ]
+	prepare_build
+
+	# Target is for DEBUG
+	if [ $1 == "Do${ARG_BUILD_DEBUG}" ]
 	then
-		prepare
 		attention_echo "Using CMake (build mode Debug)"
-		cmake -DCMAKE_BUILD_TYPE=Debug ${BASE_DIR} || exit $?
-	elif [ $1 == "DoRelease" ]
-	then
-		prepare
+		cmake -DSH_NAME_PROJECT=${NAME_PROJECT} -DCMAKE_BUILD_TYPE=Debug ${DIR_PROJECT_ROOT} || exit $?
+
+	# Target is for RELEASE
+	elif [ $1 == "Do${ARG_BUILD_RELEASE}" ]
+	then		
 		attention_echo "Using CMake (build mode Release)"
-		cmake -DCMAKE_BUILD_TYPE=Release ${BASE_DIR} || exit $?
+		cmake -DSH_NAME_PROJECT=${NAME_PROJECT} -DCMAKE_BUILD_TYPE=Release ${DIR_PROJECT_ROOT} || exit $?
+
+	# Invalid target for argument
 	else
 		attention_echo "Invalid parameter of '$1'"
 		exit 1
@@ -112,36 +130,78 @@ function build {
 	attention_echo "Packing with CPack"
 	cpack || exit $?
 
-	attention_echo "cpp-coveralls"
-	coveralls --verbose --root ${BASE_DIR} -E ".*externals*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
+	attention_echo "cpp-coveralls (muted)"
+	coveralls --verbose\
+		--root ${DIR_PROJECT_ROOT} -E ".*externals*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*" > /dev/null 2>&1
 
 	popd
-	exit 0
+	success_exit
+}
+
+function usage {
+	echo "The correct usage of this script:"
+	echo -e "\t./build.sh ${ARG_BUILD_DEBUG}"
+	echo -e "\t./build.sh ${ARG_BUILD_RELEASE}"
+	echo -e "\t./build.sh ${ARG_CLEAN}"
+	exit 2
+}
+
+function prepare_build {
+	# Clean the build folder first
+	rm -f ${DIR_BUILD}/CMakeCache.txt
+
+	mkdir -p ${DIR_BUILD} || exit $?
+	pushd ${DIR_BUILD}
 }
 
 function clean {
 	echo "Cleaning build/ folder..."
 	rm -rf build/
+	success_exit
 }
+
+function attention_echo {
+	echo -e "\n******************************************"
+	echo -e "*\t$1 *"
+	echo -e "******************************************\n"
+}
+
+function success_exit {
+	attention_echo "Finished build script"
+	exit 0
+}
+
+#########################################
+################ "Main" #################
+#########################################
 
 attention_echo "Beggining build script"
 
-if [ ! -z $1 ] # If the first argument is not empty
+# If the first argument is not empty
+if [ ! -z $1 ]
 then
-	if [ $1 == "${BUILD_DEBUG_ARG}" ] # If ./build.sh debug
+
+	# Target build is for DEBUG
+	if [ $1 == "${ARG_BUILD_DEBUG}" ] 
 	then
-		build "DoDebug"
-	elif [ $1 == "${BUILD_RELEASE_ARG}" ] # If ./build.sh release
+		build "Do${ARG_BUILD_DEBUG}"
+
+	# Target build is for RELEASE
+	elif [ $1 == "${ARG_BUILD_RELEASE}" ]
 	then
-		build "DoRelease"
-	elif [ $1 == "${CLEAN_ARG}" ] # If ./build.sh clean
+		build "Do${ARG_BUILD_RELEASE}"
+
+	# Clean the workspace
+	elif [ $1 == "${ARG_CLEAN}" ]
 	then
 		clean
+
+	# Improper usage
 	else
 		usage
 	fi
+
+# If the first argument is empty
 else
 	usage
 fi
-
-attention_echo "Finished build script"

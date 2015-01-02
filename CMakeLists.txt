@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 
-project(MyProject)
+project(${SH_NAME_PROJECT})
 
 message("*** Starting root cmake")
 
@@ -12,7 +12,7 @@ else()
 endif()
 
 # Setting some project information
-set(MyProjectName "My_Project") # Try not to put spaces in this name (and make sure its the same as build.sh)
+set(MyProjectName ${SH_NAME_PROJECT})
 set(MyProjectVersion "v${BUILD_NUMBER}")
 set(MyProjectBrief "${MyProjectName} is a toy project to illustrate a full featured C++ CMake project.")
 set(MyProjectLib ${MyProjectName}-lib)
