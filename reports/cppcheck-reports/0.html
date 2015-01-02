@@ -112,7 +112,7 @@
       <div id="menu" dir="rtl">
        <a href="index.html">Defect list</a>
        <br>
-<a href='0.html#line-31'> variableScope 31</a><a href='0.html#line-31'> unreadVariable 31</a>
+<a href='0.html#line-32'> variableScope 32</a><a href='0.html#line-32'> unreadVariable 32</a>
       </div>
       <div id="content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -151,37 +151,39 @@
 34
 35
 36
-37</pre></div></td><td class="code"><div class="highlight"><pre><a name="line-1"></a><span class="cp">#include &lt;iostream&gt;</span>
-<a name="line-2"></a><span class="cp">#include &lt;string&gt;</span>
-<a name="line-3"></a><span class="cp">#include &lt;cstdio&gt;</span>
-<a name="line-4"></a>
-<a name="line-5"></a><span class="cp">#include &lt;some_module/feature.h&gt;</span>
-<a name="line-6"></a><span class="cp">#include &lt;another_module/Widget.h&gt;</span>
-<a name="line-7"></a>
-<a name="line-8"></a><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-<a name="line-9"></a>
-<a name="line-10"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a name="line-11"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~------Project template main!-------~&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a name="line-12"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a name="line-13"></a>
-<a name="line-14"></a>	<span class="c1">// Making sure other classes are being linked properly</span>
-<a name="line-15"></a>	<span class="n">some_module</span><span class="o">::</span><span class="n">Feature</span> <span class="n">feature</span><span class="p">;</span>
-<a name="line-16"></a>	<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">testString</span> <span class="o">=</span> <span class="n">feature</span><span class="p">.</span><span class="n">toString</span><span class="p">();</span>
-<a name="line-17"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">testString</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a name="line-18"></a>
-<a name="line-19"></a>	<span class="n">Widget</span> <span class="n">widget</span><span class="p">;</span>
-<a name="line-20"></a>	<span class="k">const</span> <span class="kt">int</span> <span class="n">testMeaning</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">life</span><span class="p">(</span><span class="mi">69</span><span class="p">);</span>
-<a name="line-21"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">testMeaning</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a name="line-22"></a>
-<a name="line-23"></a>	<span class="c1">// Checking for C++11</span>
-<a name="line-24"></a>	<span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-<a name="line-25"></a>	<span class="p">((</span><span class="kt">void</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
-<a name="line-26"></a>
-<a name="line-27"></a>	<span class="c1">// Generating some bad code for cpplint and cppcheck</span>
-<a name="line-28"></a>	<span class="kt">char</span><span class="o">*</span> <span class="n">kyop</span> <span class="o">=</span> <span class="s">&quot;W O L O L O L O&quot;</span><span class="p">;</span>
-<a name="line-29"></a>	<span class="n">printf</span><span class="p">(</span><span class="n">kyop</span><span class="p">);</span>
-<a name="line-30"></a>	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a name="line-31"></a><span class="hll">	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span><div class='verbose expandable'><span class='error2'>&lt;--- The scope of the variable 'x' can be reduced <span class='marker'>[+]</span></span><div class='content'>The scope of the variable &apos;x&apos; can be reduced. Warning: It can be unsafe to fix this message. Be careful. Especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
+37
+38</pre></div></td><td class="code"><div class="highlight"><pre><a name="line-1"></a><span class="cp">#include &lt;iostream&gt;</span>
+<a name="line-2"></a><span class="cp">#include &lt;cstdio&gt;</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="cp">#include &lt;some_module/feature.h&gt;</span>
+<a name="line-5"></a><span class="cp">#include &lt;another_module/Widget.h&gt;</span>
+<a name="line-6"></a>
+<a name="line-7"></a><span class="c1">// Omit &lt;string&gt; inclusion for cpplint test</span>
+<a name="line-8"></a>
+<a name="line-9"></a><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+<a name="line-10"></a>
+<a name="line-11"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<a name="line-12"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~------Project template main!-------~&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<a name="line-13"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<a name="line-14"></a>
+<a name="line-15"></a>	<span class="c1">// Making sure other classes are being linked properly</span>
+<a name="line-16"></a>	<span class="n">some_module</span><span class="o">::</span><span class="n">Feature</span> <span class="n">feature</span><span class="p">;</span>
+<a name="line-17"></a>	<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">testString</span> <span class="o">=</span> <span class="n">feature</span><span class="p">.</span><span class="n">toString</span><span class="p">();</span>
+<a name="line-18"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">testString</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<a name="line-19"></a>
+<a name="line-20"></a>	<span class="n">Widget</span> <span class="n">widget</span><span class="p">;</span>
+<a name="line-21"></a>	<span class="k">const</span> <span class="kt">int</span> <span class="n">testMeaning</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">life</span><span class="p">(</span><span class="mi">69</span><span class="p">);</span>
+<a name="line-22"></a>	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">testMeaning</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<a name="line-23"></a>
+<a name="line-24"></a>	<span class="c1">// Checking for C++11</span>
+<a name="line-25"></a>	<span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+<a name="line-26"></a>	<span class="p">((</span><span class="kt">void</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
+<a name="line-27"></a>
+<a name="line-28"></a>	<span class="c1">// Generating some bad code for cpplint and cppcheck</span>
+<a name="line-29"></a>	<span class="kt">char</span><span class="o">*</span> <span class="n">kyop</span> <span class="o">=</span> <span class="s">&quot;W O L O L O L O&quot;</span><span class="p">;</span>
+<a name="line-30"></a>	<span class="n">printf</span><span class="p">(</span><span class="n">kyop</span><span class="p">);</span>
+<a name="line-31"></a>	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a name="line-32"></a><span class="hll">	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span><div class='verbose expandable'><span class='error2'>&lt;--- The scope of the variable 'x' can be reduced <span class='marker'>[+]</span></span><div class='content'>The scope of the variable &apos;x&apos; can be reduced. Warning: It can be unsafe to fix this message. Be careful. Especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
 void f(int x)<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
 {<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
     int i = 0;<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
@@ -194,12 +196,12 @@ void f(int x)<span class='error2'>&lt;--- Variable 'x' is assigned a value that 
     }<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
 }<span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
 When you see this message it is always safe to reduce the variable scope 1 level.</div></div><span class='error2'>&lt;--- Variable 'x' is assigned a value that is never used</span>
-</span><a name="line-32"></a>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-<a name="line-33"></a>		<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span>
-<a name="line-34"></a>	<span class="p">}</span>
-<a name="line-35"></a>
-<a name="line-36"></a>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<a name="line-37"></a><span class="p">}</span>
+</span><a name="line-33"></a>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<a name="line-34"></a>		<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span>
+<a name="line-35"></a>	<span class="p">}</span>
+<a name="line-36"></a>
+<a name="line-37"></a>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<a name="line-38"></a><span class="p">}</span>
 </pre></div>
 </td></tr></table>
       </div>

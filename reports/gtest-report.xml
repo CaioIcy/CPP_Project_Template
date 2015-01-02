@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" timestamp="2014-12-22T01:03:04" time="0.099" name="AllTests">
-  <testsuite name="Feature_toString" tests="1" failures="0" disabled="0" errors="0" time="0.032">
-    <testcase name="toString" status="run" time="0.017" classname="Feature_toString" />
+<testsuites tests="4" failures="0" disabled="0" errors="0" timestamp="2015-01-02T17:20:18" time="0.102" name="AllTests">
+  <testsuite name="FeatureTest" tests="2" failures="0" disabled="0" errors="0" time="0.037">
+    <testcase name="ToString" status="run" time="0.017" classname="FeatureTest" />
+    <testcase name="Work" status="run" time="0.004" classname="FeatureTest" />
   </testsuite>
-  <testsuite name="Feature_work" tests="1" failures="0" disabled="0" errors="0" time="0.003">
-    <testcase name="work" status="run" time="0.003" classname="Feature_work" />
-  </testsuite>
-  <testsuite name="Widget_life" tests="2" failures="0" disabled="0" errors="0" time="0.007">
-    <testcase name="Zero" status="run" time="0.004" classname="Widget_life" />
-    <testcase name="Non_Zero" status="run" time="0.003" classname="Widget_life" />
+  <testsuite name="Widget" tests="2" failures="0" disabled="0" errors="0" time="0.007">
+    <testcase name="LifeZero" status="run" time="0.004" classname="Widget" />
+    <testcase name="LifeNonZero" status="run" time="0.003" classname="Widget" />
   </testsuite>
 </testsuites>

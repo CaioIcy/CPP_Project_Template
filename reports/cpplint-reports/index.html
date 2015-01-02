@@ -51,8 +51,9 @@
        <a href="index.html">Defect summary</a>
        <br>
        <p>
-        3 total<br/><br/>
+        4 total<br/><br/>
         2 build/include_order<br/>
+        1 build/include_what_you_use<br/>
         1 runtime/printf<br/>
        </p>
       </div>
@@ -60,9 +61,10 @@
        <table>
        <tr><th>Line</th><th>Id</th><th>Severity</th><th>Message</th></tr>
        <tr><td colspan='4'><a href='0.html'>/home/travis/build/CaioIcy/CPP_Project_Template/src/main.cpp</a></td></tr>
+       <tr><td><a href='0.html#line-4'>4</a></td><td>build/include_order</td><td>warning</td><td >Found C system header after C++ system header. Should be: main.h, c system, c++ system, other.  </td></tr>
        <tr><td><a href='0.html#line-5'>5</a></td><td>build/include_order</td><td>warning</td><td >Found C system header after C++ system header. Should be: main.h, c system, c++ system, other.  </td></tr>
-       <tr><td><a href='0.html#line-6'>6</a></td><td>build/include_order</td><td>warning</td><td >Found C system header after C++ system header. Should be: main.h, c system, c++ system, other.  </td></tr>
-       <tr><td><a href='0.html#line-29'>29</a></td><td>runtime/printf</td><td>warning</td><td >Potential format string bug. Do printf("%s", kyop) instead.  </td></tr>
+       <tr><td><a href='0.html#line-17'>17</a></td><td>build/include_what_you_use</td><td>warning</td><td >Add #include &lt;string&gt; for string  </td></tr>
+       <tr><td><a href='0.html#line-30'>30</a></td><td>runtime/printf</td><td>warning</td><td >Potential format string bug. Do printf(&quot;%s&quot;, kyop) instead.  </td></tr>
        </table>
       </div>
       <div id="footer">
