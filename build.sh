@@ -45,12 +45,18 @@ function code_analysis {
 	cppcheck -v --enable=all ${SRC_DIR} -I${SRC_DIR} --xml-version=2 2> cppcheck-only-result.xml
 	# Generate html from it
 	mkdir -p ${CPPCHECK_REPORTS_DIR} || exit $?
-	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cppcheck-only-result.xml --report-dir=${CPPCHECK_REPORTS_DIR} --source-dir=${BASE_DIR}
+	./${UTILS_DIR}/cppcheck-htmlreport.py\
+		--file=cppcheck-only-result.xml\
+		--report-dir=${CPPCHECK_REPORTS_DIR}\
+		--source-dir=${BASE_DIR}
 	sed -i 's/\[project\ name\]/\['$PROJECT_NAME'\]/g' ${CPPCHECK_REPORTS_DIR}/index.html
 
 	attention_echo "cpplint.py"
 	# Generate cppcheck-style xml from cpplint output
-	./${UTILS_DIR}/cpplint.py --filter=-whitespace,-legal ${SRC_DIR}/*.cpp 2>&1| sed 's/"/\&quot;/g' >&1| ./${UTILS_DIR}/cpplint_to_cppcheckxml.py &> cpplint-cppcheck-result.xml
+	./${UTILS_DIR}/cpplint.py --filter=-whitespace,-legal ${SRC_DIR}/*.cpp 2>&1|\
+		sed 's/"/\&quot;/g' >&1| sed 's/</\&lt;/g' >&1| sed 's/>/\&gt;/g' >&1|\
+		sed "s/'/\&apos;/g" >&1| sed 's/\&/\&amp;/g' >&1|\
+		./${UTILS_DIR}/cpplint_to_cppcheckxml.py &> cpplint-cppcheck-result.xml
 	# Generate html from it
 	mkdir -p ${CPPLINT_REPORTS_DIR} || exit $?
 	./${UTILS_DIR}/cppcheck-htmlreport.py --file=cpplint-cppcheck-result.xml --report-dir=${CPPLINT_REPORTS_DIR} --source-dir=${BASE_DIR}

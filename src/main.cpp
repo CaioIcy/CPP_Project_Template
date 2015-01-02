@@ -1,9 +1,10 @@
 #include <iostream>
-#include <string>
 #include <cstdio>
 
 #include <some_module/feature.h>
 #include <another_module/Widget.h>
+
+// Omit <string> inclusion for cpplint test
 
 int main(int argc, char** argv) {
 
