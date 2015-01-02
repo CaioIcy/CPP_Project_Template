@@ -50,7 +50,7 @@ This will produce:
 
 The GitHub webpage is available here: [Project Webpage]  
 
-All the documentation and reports are automatically published to it with **Travis-CI**, using the **[publish to gh-pages](utils/publish_to_ghpages.sh)** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
+All the documentation and reports are automatically published to it with **Travis-CI**, using the **[publish to gh-pages](utils/publish_doxygen.sh)** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
 
 To achieve this, you must have an access token to your repository, so **Travis-CI** can push to the gh-pages branch. A nice tutorial can be found [here](http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/) in steps 1 through 4.
 
