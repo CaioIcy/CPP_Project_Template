@@ -1,5 +1,6 @@
 # C++ Project Template
 [![Travis CI Build Status](https://travis-ci.org/CaioIcy/CPP_Project_Template.svg?branch=master)](https://travis-ci.org/CaioIcy/CPP_Project_Template)
+[![Coverage Status](https://img.shields.io/coveralls/CaioIcy/CPP_Project_Template.svg)](https://coveralls.io/r/CaioIcy/CPP_Project_Template)
 
 Forked from [opatry's template]:
 > "This project is used as a basis for any C++ project built with CMake. Its purpose is to provide a full featured (code coverage, unit tests, static analysis, …) and cross platform build. It tries to use CMake in the most effective way."
