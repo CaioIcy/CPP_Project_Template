@@ -11,7 +11,11 @@ set(ExecTarget ${MyProjectName}_exec)
 
 add_library(${MyProjectLib} STATIC ${MySourcesNoMain})
 # add_library(${MyProjectLib}Shared SHARED ${MySourcesNoMain})
-add_executable(${ExecTarget} ${MyCppSources}) # '_exec' suffix to make gitignore's life easy
+add_executable(${ExecTarget} ${MyCppSources})
+
+# Adding warning and standard flags here so we don't get an insane amount of warnings from
+# externals, just from our project
+set_target_properties(${ExecTarget} PROPERTIES COMPILE_FLAGS "${FLAGS_WARNING} ${FLAG_CXX_STANDARD}")
 target_link_libraries(${ExecTarget} ${MyProjectLib})
 
 # Used to be '/include', but is now '/src' due to remodeling of the project structure
@@ -29,5 +33,12 @@ install(TARGETS ${ExecTarget} #${MyProjectLib}Shared
 # 	DESTINATION .
 # 	COMPONENT headers
 # )
+
+# Licensing and stuff like that
+install(FILES
+	${ReadmeFile}
+	${LicenseFile}
+	DESTINATION .
+)
 
 message("*** Finish subdir 'src' cmake")

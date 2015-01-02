@@ -61,9 +61,8 @@ function do_cpplint {
 		--title=${NAME_PROJECT}
 
 	# Change Cppcheck things to cpplint
-	sed -i 's/Cppcheck\ \-\ HTML\ report/cpplint\ \-\ HTML\ report/g' ${DIR_REPORTS_CPPLINT}/index.html
-	sed -i 's/Cppcheck\ report\ \-\/cpplint report\ \-\/g' ${DIR_REPORTS_CPPLINT}/index.html
-	sed -i 's/Cppcheck\ \ \-\ a\ tool\ for\ static\ C\/C++\ code\ analysis/cpplint\ \ \-\ an\ open\ source\ lint\-like\ tool\ from\ Google/g' ${DIR_REPORTS_CPPLINT}/index.html
+	sed -i 's/Cppcheck/cpplint/g' ${DIR_REPORTS_CPPLINT}/index.html
+	sed -i 's/a\ tool\ for\ static\ C\/C++\ code\ analysis/an\ open\ source\ lint\-like\ tool\ from\ Google/g' ${DIR_REPORTS_CPPLINT}/index.html
 	sed -i 's/http:\/\/cppcheck.sourceforge.net/http:\/\/google\-styleguide.googlecode.com\/svn\/trunk\/cpplint\/cpplint.py/g' ${DIR_REPORTS_CPPLINT}/index.html
 	sed -i 's/IRC: <a href=\"irc:\/\/irc.freenode.net\/cppcheck\">irc:\/\/irc.freenode.net\/cppcheck<\/a>/\ /g' ${DIR_REPORTS_CPPLINT}/index.html
 }
