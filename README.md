@@ -7,27 +7,31 @@ Forked from [opatry's template]:
 
 # What is contained
 
-Technology     | Description
----------------|----------
-**C++11**      | Supported language. Will add C++14 eventually.
-**CMake**      | Build system
-**CPack**      | Packaging system integrated with CMake
-**Google Test**| Google's C++ Testing Framework
-**Doxygen**    | Code documentation
-**cpplint**    | Open source lint-like tool from Google
-**Cppcheck**   | Static analysis tool
-**Travis CI**  | Continuous integration
+Technology     |                    Description                 | Links
+---------------|------------------------------------------------|-------------
+**C++11**      | Supported standard. Will add C++14 eventually. | [*](https://en.wikipedia.org/wiki/C%2B%2B11)
+**CMake**      | Build system                                   | [*](http://www.cmake.org/)
+**CPack**      | Packaging system integrated with CMake         | [*](http://www.cmake.org/Wiki/CMake:Packaging_With_CPack)
+**Google Test**| Google's C++ Testing Framework                 | [*](https://code.google.com/p/googletest/)
+**Doxygen**    | Code documentation                             | [*](http://www.stack.nl/~dimitri/doxygen/)
+**cpplint**    | Open source lint-like tool from Google         | [*](https://en.wikipedia.org/wiki/Cpplint) [*](https://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py)
+**Cppcheck**   | A tool for static C/C++ code analysis          | [*](http://cppcheck.sourceforge.net/)
+**gcov/gcovr** | Code coverage                                  | [*](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) [*](http://gcovr.com/)
+**Travis CI**  | Continuous integration                         | [*](https://travis-ci.org/)
+**Coveralls**  | Code coverage history and stats                | [*](https://coveralls.io/) [*](https://github.com/eddyxu/cpp-coveralls)
 
 # Dependencies
 
-From **.travis.yml** (_Ubuntu_):  
+From **[.travis.yml](.travis.yml)** (_Ubuntu_):  
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 sudo apt-get update -qq
-sudo apt-get install -qq cmake doxygen g++-4.8 python-pip cppcheck valgrind
+sudo apt-get install -qq cmake doxygen g++-4.8 python-pip cppcheck valgrind ggcov
 sudo pip install Pygments
 sudo pip install gcovr
+sudo pip install cpp-coveralls
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 80
 ```
 
 # Building
@@ -46,7 +50,9 @@ This will produce:
 
 The GitHub webpage is available here: [Project Webpage]  
 
-All the documentation and reports are automatically published to it with **Travis-CI**, using the **utils/publish_to_ghpages.sh** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
+All the documentation and reports are automatically published to it with **Travis-CI**, using the **[publish to gh-pages](utils/publish_to_ghpages.sh)** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
+
+To achieve this, you must have an access token to your repository, so **Travis-CI** can push to the gh-pages branch. A nice tutorial can be found [here](http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/) in steps 1 through 4.
 
 # Notes
 
