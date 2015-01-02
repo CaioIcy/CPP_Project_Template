@@ -74,10 +74,10 @@ function code_analysis {
 	# Test suite valgrind report + Test report
 	valgrind --xml=yes --xml-file=${REPORTS_DIR}/valgrind-${GTEST_TARGET}-report.xml ${BUILD_TEST_DIR}/${GTEST_TARGET} --gtest_output=xml:${REPORTS_DIR}/gtest-report.xml
 
-	# attention_echo "gcovr"
+	attention_echo "gcovr"
 	# Cobertura
-	# mkdir -p ${GCOVR_REPORTS_DIR} || exit $?
-	# gcovr -r ${GCOVR_DIR} -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
+	mkdir -p ${GCOVR_REPORTS_DIR} || exit $?
+	gcovr -r ${GCOVR_DIR} -f ${BASE_DIR}/src --html --html-details -o ${GCOVR_REPORTS_DIR}/index.html
 }
 
 function prepare {
