@@ -12,8 +12,8 @@
   <line>Command: /home/travis/build/CaioIcy/CPP_Project_Template/utils/travis/../../build/src/Cool_Project_Name_exec</line>
 </preamble>
 
-<pid>17567</pid>
-<ppid>17547</ppid>
+<pid>17564</pid>
+<ppid>17544</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -30,13 +30,13 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.044 </time>
+  <time>00:00:00:00.041 </time>
 </status>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:00.697 </time>
+  <time>00:00:00:00.701 </time>
 </status>
 
 <errorcounts>
