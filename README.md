@@ -56,7 +56,7 @@ Both will produce:
 
 `./utils/travis/after_success.sh`
 
-This will produce the following reports:
+This will produce the following reports in _build/reports/_:
 - Cppcheck
 - Cpplint
 - Valgrind
