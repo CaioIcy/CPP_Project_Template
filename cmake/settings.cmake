@@ -9,8 +9,13 @@ endif()
 set(MyProjectName ${SH_NAME_PROJECT})
 set(MyProjectVersion "v${BUILD_NUMBER}")
 set(MyProjectBrief "${MyProjectName} is a toy project to illustrate a full featured C++ CMake project.")
-set(MyProjectLib ${MyProjectName}-lib)
+set(MyProjectLib ${MyProjectName})
 # set(MyProjectVendor "IcyWare")
+
+# Stripping leading and trailing spaces, all to lowercase, and removing underscores from lib names
+string(STRIP ${MyProjectLib} MyProjectLib)
+string(TOLOWER ${MyProjectLib} MyProjectLib)
+string(REPLACE "_" "" MyProjectLib ${MyProjectLib})
 
 set(ExternalLibsDir "externals")
 

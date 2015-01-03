@@ -26,6 +26,6 @@ if(NOT DOC_DISABLED)
 	add_subdirectory(doc/)
 endif()
 
-if(MYPROJECT_TESTS_ENABLED)
+if(MY_TESTS_ENABLED)
 	add_subdirectory(test/)
 endif()

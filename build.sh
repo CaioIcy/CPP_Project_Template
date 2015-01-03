@@ -33,13 +33,17 @@ function build {
 	if [ $1 == "Do${ARG_BUILD_DEBUG}" ]
 	then
 		attention_echo "Using CMake (build mode Debug)"
-		cmake -DSH_NAME_PROJECT=${NAME_PROJECT} -DCMAKE_BUILD_TYPE=Debug ${DIR_PROJECT_ROOT} || exit $?
+		cmake -DSH_NAME_PROJECT=${NAME_PROJECT}\
+			-DCMAKE_BUILD_TYPE=Debug\
+			${DIR_PROJECT_ROOT} || exit $?
 
 	# Target is for RELEASE
 	elif [ $1 == "Do${ARG_BUILD_RELEASE}" ]
 	then		
 		attention_echo "Using CMake (build mode Release)"
-		cmake -DSH_NAME_PROJECT=${NAME_PROJECT} -DCMAKE_BUILD_TYPE=Release ${DIR_PROJECT_ROOT} || exit $?
+		cmake -DSH_NAME_PROJECT=${NAME_PROJECT}\
+			-DCMAKE_BUILD_TYPE=Release\
+			${DIR_PROJECT_ROOT} || exit $?
 
 	# Invalid target for argument
 	else
