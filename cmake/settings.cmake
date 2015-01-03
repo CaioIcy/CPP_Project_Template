@@ -20,6 +20,6 @@ string(REPLACE "_" "" MyProjectLib ${MyProjectLib})
 set(ExternalLibsDir "externals")
 
 # Used by documentation home and in packaging
-set(ReadmeFile "${PROJECT_SOURCE_DIR}/doc/README.txt")	# README file that goes into the package. NOT git's readme
-set(LicenseFile "${PROJECT_SOURCE_DIR}/LICENSE") 		# Legal info file
-set(WelcomeFile "${PROJECT_SOURCE_DIR}/doc/WELCOME.md")	# Doxygen main page file
+set(LicenseFile "${PROJECT_SOURCE_DIR}/LICENSE") 	# Legal info file
+set(ReadmeFile "${MY_CMAKE_INPUT}/README.txt")	# README file that goes into the package. NOT git's readme
+set(WelcomeFile "${MY_CMAKE_INPUT}/WELCOME.md")	# Doxygen main page file
