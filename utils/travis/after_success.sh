@@ -21,6 +21,9 @@ fi
 TARGET_PROJECT=${NAME_PROJECT}_exec
 TARGET_GTEST=${NAME_PROJECT}_GTest
 
+# Doxygen files directory name
+DIRNAME_DOXYGEN=html
+
 # Some directories
 DIR_PROJECT_ROOT=$(dirname "$(readlink -f $0)")
 DIR_PROJECT_ROOT=${DIR_PROJECT_ROOT}/../..
@@ -34,21 +37,23 @@ DIR_REPORTS_CPPCHECK=${DIR_REPORTS}/cppcheck-reports
 DIR_REPORTS_GCOVR=${DIR_REPORTS}/gcovr-reports
 DIR_GCOVR_FILES=${DIR_BUILD_SRC}/CMakeFiles/${TARGET_PROJECT}.dir/
 DIR_UTILS=${DIR_PROJECT_ROOT}/utils
+DIR_DOXYGEN=${DIR_BUILD}/${DIRNAME_DOXYGEN}
+DIR_TMP_GHPAGES=${DIR_PROJECT_ROOT}/push_to_ghpages
 
 function success_exit {
 	attention_echo "Finished build script"
 	exit 0
 }
 
-function publish_doxygen {
-	attention_echo "Publish doxygen script start"
+function publish_to_gh_pages {
+	attention_echo "Publish function start"
 
 	pushd ${DIR_PROJECT_ROOT}
-	mkdir push_to_ghpages
-	cp -Rf ./build/doc/html/ ./push_to_ghpages/
-	cp -Rf ./build/reports/ ./push_to_ghpages/
-	pushd ./push_to_ghpages/
-	mv html/ doxygen/
+	mkdir -p ${DIR_TMP_GHPAGES}
+	cp -Rf ${DIR_DOXYGEN} ${DIR_TMP_GHPAGES} || exit $?
+	cp -Rf ${DIR_REPORTS} ${DIR_TMP_GHPAGES} || exit $?
+	pushd ${DIR_TMP_GHPAGES}
+	mv ${DIRNAME_DOXYGEN}/ doxygen/
 
 	git config --global user.email "travis@travis-ci.org"
 	git config --global user.name "Travis-CI"
@@ -179,7 +184,7 @@ then
 		--root ${DIR_PROJECT_ROOT} -E ".*externals*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
 
 	# Publish Doxygen to gh-pages
-	publish_doxygen
+	publish_to_gh_pages
 
 # If no argument specified to publish
 else
