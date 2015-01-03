@@ -5,7 +5,7 @@ compiler:
 
 env:
   global:
-    # Encrypted personal access token 
+    # Encrypted personal access token
     - secure: cv9q6yST1rcFv0Urc6UuWESqOFz+ZDWChUjfbCrL1hHa8B5osFtyBnjvhtK7noXaIsVDBmaOWLrcISfWrxHTVMvNBcxf0GmkjNeDzskOC1z+ft02Jw1pE0DGOYWwNwiAJe35wp0Qp0auJWQGAWxdY64LXGukhsoBkM6Uv9fnvCk=
     # GitHub user name
     - GH_USR=CaioIcy
@@ -13,6 +13,8 @@ env:
     - GH_REF=github.com/CaioIcy/CPP_Project_Template.git
     # Project name (no spaces)
     - T_NAME_PROJECT=Cool_Project_Name
+    # This variable tells TravisCI to publish to gh-pages and Coveralls:
+    - T_DO_PUBLISH_GH_COV=Yes
 
 before_install:
     - ./utils/travis/before_install.sh
@@ -23,4 +25,4 @@ install:
 script: ./build.sh debug
 
 after_success:
-    - ./utils/travis/after_success.sh --publish
+    - ./utils/travis/after_success.sh

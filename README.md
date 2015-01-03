@@ -20,11 +20,16 @@ Technology     |                    Description                 | Links
 **Travis CI**  | Continuous integration                         | [*](https://travis-ci.org/)
 **Coveralls**  | Code coverage history and stats                | [*](https://coveralls.io/) [*](https://github.com/eddyxu/cpp-coveralls)
 
+# Customization
+
+If you wish to work on a C++ project using this template, please read the [customization instructions](customization.md) file. If there are any problems, please open an issue here!
+
 # Dependencies
 
-From **[.travis.yml](.travis.yml)** (_Ubuntu_):  
+From **[the Travis scripts](utils/travis/)** (_Ubuntu_):  
 ```
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+sudo add-apt-repository --yes ppa:kubuntu-ppa/backports
 sudo apt-get update -qq
 sudo apt-get install -qq cmake doxygen g++-4.8 python-pip cppcheck valgrind ggcov
 sudo pip install Pygments
@@ -36,21 +41,34 @@ sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 80
 
 # Building
 
- `./build.sh debug`   
- or
- `./build.sh release`
+ `./build.sh debug`  
+ _Debug information (-g), zero-level optimization (-O0) and gcov flags._
  
-This will produce:
-- Project Executable (_build/src/MyProject_exec_)
-- Test Executable (_build/src/MyProject_GTest_)
+`./build.sh release`  
+_Third-level optimization (-O3) and treat warnings as errors (-Werror)_
+ 
+Both will produce:
+- Project Executable (_build/src/PROJECTNAME_exec_)
+- Test Executable (_build/src/PROJECTNAME_GTest_)
 - Doxygen documentation (_build/doc/html/_)
-- Several reports (_/build/reports/_)
+
+# Generating reports and packaging
+
+`./utils/travis/after_success.sh`
+
+This will produce the following reports:
+- Cppcheck
+- Cpplint
+- Valgrind
+- Gcovr
+
+And if this script is ran from within **Travis-CI**, it will publish all the reports, doxygen documentation to the [Project Webpage] in the _gh-pages_ branch, and it will publish the coverage report to [Coveralls].
 
 # Webpage
 
 The GitHub webpage is available here: [Project Webpage]  
 
-All the documentation and reports are automatically published to it with **Travis-CI**, using the **[publish to gh-pages](utils/publish_doxygen.sh)** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
+As mentioned, all the documentation and reports are automatically published to it from within **Travis-CI**, using the **[after success script](utils/travis/after_success.sh)** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
 
 To achieve this, you must have an access token to your repository, so **Travis-CI** can push to the gh-pages branch. A nice tutorial can be found [here](http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/) in steps 1 through 4.
 
@@ -66,3 +84,4 @@ See [LICENSE](LICENSE) file.
 [Project Webpage]:https://caioicy.github.io/CPP_Project_Template/
 [opatry's template]:https://github.com/opatry/CPP_Project_Template
 [dmonopoly's project]:https://github.com/dmonopoly/gtest-cmake-example
+[Coveralls]:https://coveralls.io/

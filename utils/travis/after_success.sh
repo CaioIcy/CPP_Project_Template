@@ -7,9 +7,6 @@ function attention_echo {
 	echo -e "******************************************\n"
 }
 
-# The possible arguments to pass to this script
-ARG_PUBLISH="--publish"
-
 # Default project name (no spaces)
 NAME_PROJECT="Default_Project_Name"
 # If there is a T_NAME_PROJECT, assign it to NAME_PROJECT
@@ -150,14 +147,6 @@ function code_analysis {
 	do_gcovr
 }
 
-function usage {
-	echo "The correct usage of this script:"
-	echo -e "\t./after_success.sh"
-	echo -e "\t./after_success.sh --publish"
-	echo ""
-	exit 2
-}
-
 #########################################
 ################ "Main" #################
 #########################################
@@ -171,13 +160,6 @@ then
 	exit 3
 fi
 
-# If the first argument is empty or isn't ARG_PUBLISH
-if [ ! -z $1 ] && [ $1 != ${ARG_PUBLISH} ]
-then
-	echo -e "Invalid parameter '$1' \n"
-	usage
-fi
-
 pushd ${DIR_BUILD}
 
 code_analysis
@@ -188,7 +170,7 @@ cpack
 popd
 
 # If the first argument is what we want
-if [ ! -z $1 ] && [ $1 == ${ARG_PUBLISH} ]
+if [ ! -z $T_DO_PUBLISH_GH_COV ] && [ "$T_DO_PUBLISH_GH_COV" == "Yes" ]
 then
 	attention_echo "cpp-coveralls"
 
