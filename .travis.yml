@@ -3,26 +3,24 @@ language: cpp
 compiler:
     - gcc
 
+env:
+  global:
+    # Encrypted personal access token 
+    - secure: cv9q6yST1rcFv0Urc6UuWESqOFz+ZDWChUjfbCrL1hHa8B5osFtyBnjvhtK7noXaIsVDBmaOWLrcISfWrxHTVMvNBcxf0GmkjNeDzskOC1z+ft02Jw1pE0DGOYWwNwiAJe35wp0Qp0auJWQGAWxdY64LXGukhsoBkM6Uv9fnvCk=
+    # GitHub user name
+    - GH_USR=CaioIcy
+    # GitHub link
+    - GH_REF=github.com/CaioIcy/CPP_Project_Template.git
+    # Project name (no spaces)
+    - T_NAME_PROJECT=Cool_Project_Name
+
 before_install:
-    - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test # g++-4;8
-    - sudo add-apt-repository --yes ppa:kubuntu-ppa/backports   # cmake
-    - sudo apt-get update -qq
+    - ./utils/travis/before_install.sh
 
 install:
-    - sudo apt-get install -qq cmake doxygen g++-4.8 python-pip cppcheck valgrind ggcov
-    - sudo pip install Pygments
-    - sudo pip install gcovr
-    - sudo pip install cpp-coveralls
-    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-    - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 80
+    - ./utils/travis/install.sh
 
 script: ./build.sh debug
 
 after_success:
-    - ./utils/publish_doxygen.sh
-
-env:
-  global:
-    - secure: cv9q6yST1rcFv0Urc6UuWESqOFz+ZDWChUjfbCrL1hHa8B5osFtyBnjvhtK7noXaIsVDBmaOWLrcISfWrxHTVMvNBcxf0GmkjNeDzskOC1z+ft02Jw1pE0DGOYWwNwiAJe35wp0Qp0auJWQGAWxdY64LXGukhsoBkM6Uv9fnvCk=
-    - GH_USR=CaioIcy
-    - GH_REF=github.com/CaioIcy/CPP_Project_Template.git
+    - ./utils/travis/after_success.sh --publish
