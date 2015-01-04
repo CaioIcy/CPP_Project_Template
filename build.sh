@@ -15,6 +15,7 @@ then
 	NAME_PROJECT=${T_NAME_PROJECT}
 else
 	attention_echo "No T_NAME_PROJECT set"
+	echo "Using '$NAME_PROJECT' as project name"
 fi
 
 # The possible arguments to pass to this script

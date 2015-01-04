@@ -1,5 +1,3 @@
-message("*** Starting subdir 'doc' cmake")
-
 find_package(Doxygen)
 
 if(DOXYGEN_FOUND)
@@ -19,5 +17,3 @@ if(DOXYGEN_FOUND)
 else(DOXYGEN_FOUND)
 	message(FATAL_ERROR "Doxygen was not found.")
 endif(DOXYGEN_FOUND)
-
-message("*** Finish subdir 'doc' cmake")

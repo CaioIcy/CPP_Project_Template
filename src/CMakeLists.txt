@@ -1,4 +1,4 @@
-message("*** Starting subdir 'src' cmake")
+message("\n*** src/ subdir")
 
 ###################################################################
 message(AUTHOR_WARNING "Getting source files by using glob")
@@ -56,5 +56,3 @@ install(FILES
 	${LicenseFile}
 	DESTINATION .
 )
-
-message("*** Finish subdir 'src' cmake")

@@ -124,12 +124,12 @@ function do_valgrind {
 
 	# Project valgrind report
 	valgrind --xml=yes\
-		--xml-file=${DIR_REPORTS}/valgrind-${TARGET_PROJECT}-report.xml\
+		--xml-file=${DIR_REPORTS}/valgrind-exec-report.xml\
 		${DIR_BUILD_SRC}/${TARGET_PROJECT}
 
 	# Test suite valgrind report + Test report
 	valgrind --xml=yes\
-		--xml-file=${DIR_REPORTS}/valgrind-${TARGET_GTEST}-report.xml\
+		--xml-file=${DIR_REPORTS}/valgrind-gtest-report.xml\
 		${DIR_BUILD_TEST}/${TARGET_GTEST}\
 		--gtest_output=xml:${DIR_REPORTS}/gtest-report.xml
 }

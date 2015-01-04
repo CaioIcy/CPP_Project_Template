@@ -1,6 +1,5 @@
-message("*** Starting subdir 'test' cmake")
+message("\n*** test/ subdir")
 
-message("*** Enable testing")
 enable_testing()
 
 # Has project(gtest)
@@ -21,7 +20,6 @@ set(GtestTarget ${MyProjectName}_GTest)
 message(AUTHOR_WARNING "Getting test source files by using glob")
 file(GLOB_RECURSE TESTS_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
-message("*** Adding gtest executable")
 add_executable(${GtestTarget} ${TESTS_FILES})
 target_link_libraries(${GtestTarget} )
 
@@ -34,5 +32,3 @@ target_link_libraries(${GtestTarget}
 if(CMAKE_COMPILER_IS_GNUC OR CMAKE_COMPILER_IS_GNUCXX)
 	target_link_libraries(${GtestTarget} pthread)
 endif()
-
-message("*** Finish subdir 'test' cmake")
