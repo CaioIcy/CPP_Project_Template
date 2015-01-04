@@ -12,8 +12,8 @@
   <line>Command: /home/travis/build/CaioIcy/CPP_Project_Template/build/test/Cool_Project_Name_GTest --gtest_output=xml:/home/travis/build/CaioIcy/CPP_Project_Template/build/reports/gtest-report.xml</line>
 </preamble>
 
-<pid>17734</pid>
-<ppid>17708</ppid>
+<pid>17745</pid>
+<ppid>17719</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -21,7 +21,7 @@
     <exe>/usr/bin/valgrind.bin</exe>
     <arg>--suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp</arg>
     <arg>--xml=yes</arg>
-    <arg>--xml-file=/home/travis/build/CaioIcy/CPP_Project_Template/build/reports/valgrind-Cool_Project_Name_GTest-report.xml</arg>
+    <arg>--xml-file=/home/travis/build/CaioIcy/CPP_Project_Template/build/reports/valgrind-gtest-report.xml</arg>
   </vargv>
   <argv>
     <exe>/home/travis/build/CaioIcy/CPP_Project_Template/build/test/Cool_Project_Name_GTest</exe>
@@ -31,13 +31,13 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.054 </time>
+  <time>00:00:00:00.065 </time>
 </status>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:01.476 </time>
+  <time>00:00:00:01.923 </time>
 </status>
 
 <errorcounts>
