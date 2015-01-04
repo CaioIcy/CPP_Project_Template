@@ -23,9 +23,8 @@ set_target_properties(${MyProjectLib} PROPERTIES COMPILE_FLAGS "${FLAGS_MY_PROJE
 ###################################################################
 # Adding warning and standard flags here so we don't get an insane amount of warnings from
 # externals, just from our project
-add_executable(${ExecTarget} main.cpp)
+add_executable(${ExecTarget} ${MyCppSources})
 set_target_properties(${ExecTarget} PROPERTIES COMPILE_FLAGS "${FLAGS_MY_PROJECT}")
-target_link_libraries(${ExecTarget} ${MyProjectLib})
 
 ###################################################################
 # Used to be '/include', but is now '/src' due to remodeling of the project structure
