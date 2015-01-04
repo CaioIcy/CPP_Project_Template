@@ -50,17 +50,18 @@ _Third-level optimization (-O3) and treat warnings as errors (-Werror)_
 Both will produce:
 - Project Executable (_build/src/PROJECTNAME_exec_)
 - Test Executable (_build/src/PROJECTNAME_GTest_)
-- Doxygen documentation (_build/doc/html/_)
+- [Doxygen documentation](https://caioicy.github.io/CPP_Project_Template/doxygen/) (_build/doc/html/_)
 
 # Generating reports and packaging
 
 `./utils/travis/after_success.sh`
 
 This will produce the following reports in _build/reports/_:
-- Cppcheck
-- Cpplint
-- Valgrind
-- Gcovr
+- [Cppcheck HTML](https://caioicy.github.io/CPP_Project_Template/reports/cppcheck-reports/)
+- [Cpplint HTML](https://caioicy.github.io/CPP_Project_Template/reports/cpplint-reports/)
+- [Valgrind XML](https://caioicy.github.io/CPP_Project_Template/reports/valgrind-exec-report.xml)
+- [Google Test XML](https://caioicy.github.io/CPP_Project_Template/reports/gtest-report.xml)
+- [Gcovr HTML](https://caioicy.github.io/CPP_Project_Template/reports/gcovr-reports/)
 
 And if this script is ran from within **Travis-CI**, it will publish all the reports, doxygen documentation to the [Project Webpage] in the _gh-pages_ branch, and it will publish the coverage report to [Coveralls].
 
@@ -68,7 +69,7 @@ And if this script is ran from within **Travis-CI**, it will publish all the rep
 
 The GitHub webpage is available here: [Project Webpage]  
 
-As mentioned, all the documentation and reports are automatically published to it from within **Travis-CI**, using the **[after success script](utils/travis/after_success.sh)** script. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
+As mentioned, all the documentation and reports are automatically published to it from within **Travis-CI**, using the **[after success script](utils/travis/after_success.sh)**. The idea is that every project derived from this template can also have this format of auto-publishing stuff.
 
 To achieve this, you must have an access token to your repository, so **Travis-CI** can push to the gh-pages branch. A nice tutorial can be found [here](http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/) in steps 1 through 4.
 
