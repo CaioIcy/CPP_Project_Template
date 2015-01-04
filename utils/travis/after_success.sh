@@ -40,6 +40,9 @@ DIR_UTILS=${DIR_PROJECT_ROOT}/utils
 DIR_DOXYGEN=${DIR_BUILD}/${DIRNAME_DOXYGEN}
 DIR_TMP_GHPAGES=${DIR_PROJECT_ROOT}/push_to_ghpages
 
+# CPack packaged project
+FILES_CPACK=${DIR_BUILD}/${NAME_PROJECT}*.zip
+
 function success_exit {
 	attention_echo "Finished build script"
 	exit 0
@@ -49,10 +52,14 @@ function publish_to_gh_pages {
 	attention_echo "Publish function start"
 
 	pushd ${DIR_PROJECT_ROOT}
+
 	mkdir -p ${DIR_TMP_GHPAGES}
 	cp -Rf ${DIR_DOXYGEN} ${DIR_TMP_GHPAGES} || exit $?
 	cp -Rf ${DIR_REPORTS} ${DIR_TMP_GHPAGES} || exit $?
+	cp -f  ${FILES_CPACK} ${DIR_TMP_GHPAGES} || exit $?
+
 	pushd ${DIR_TMP_GHPAGES}
+
 	mv ${DIRNAME_DOXYGEN}/ doxygen/
 
 	git config --global user.email "travis@travis-ci.org"
@@ -63,9 +70,12 @@ function publish_to_gh_pages {
 	cd gh-pages/
 	git rm -rf ./doxygen/
 	git rm -rf ./reports/
+	git rm -rf ./cpack/
+	mkdir cpack || exit $?
 	cd ..
 	mv doxygen/ gh-pages/
 	mv reports/ gh-pages/
+	mv ${FILES_CPACK} gh-pages/cpack/
 	cd gh-pages/
 
 	git add --all
