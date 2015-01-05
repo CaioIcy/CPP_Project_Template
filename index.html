@@ -1,60 +1,83 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>C++ Project Template by CaioIcy</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<title>C++ Project Template by CaioIcy</title>
+		<link rel="stylesheet" href="stylesheets/styles.css">
+		<link rel="stylesheet" href="stylesheets/pygment_trac.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="javascripts/respond.js"></script>
 
-  </head>
-  <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/CaioIcy/CPP_Project_Template">GitHub</a></li>
-          <li class="fork"><a href="https://caioicy.github.io/CPP_Project_Template/doxygen/">Doxygen</a></li>
-          <li class="fork"><a href="https://caioicy.github.io/CPP_Project_Template/reports/cppcheck-reports/">CPPCheck</a></li>
-          <li class="fork"><a href="https://caioicy.github.io/CPP_Project_Template/reports/cpplint-reports/">CPPLint</a></li>
-          <li class="fork"><a href="https://caioicy.github.io/CPP_Project_Template/reports/gcovr-reports/">GCovr</a></li>
-          <li class="fork"><a href="https://caioicy.github.io/CPP_Project_Template/reports/gtest-report.xml">GTest</a></li>
-          <li class="fork"><a href="https://caioicy.github.io/CPP_Project_Template/reports/valgrind-exec-report.xml">Valgrind</a></li>
-          <!-- <li class="downloads"><a href="https://github.com/CaioIcy/CPP_Project_Template/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/CaioIcy/CPP_Project_Template/tarball/master">TAR</a></li> -->
-          <li class="title">LINKS</li>
-        </nav>
-      </div><!-- end header -->
+		<script type="text/javascript">
 
-    <div class="wrapper">
+			// GitHub info
+			var GitHub_User = 'CaioIcy';
+			var GitHub_Project_Name = 'CPP_Project_Template';
+			var GitHub_Web_Page = 'https://' + GitHub_User + '.github.io/' + GitHub_Project_Name + '/';
 
-      <section>
-        <div id="title">
-          <h1>C++ CMake Template</h1>
-          <p>C++ project template with CMake, gtest, and others</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/CaioIcy">CaioIcy</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+			// Project name (same as the build name defined in .travis.yml file)
+			var Project_Name = 'Cool_Project_Name';
+			var Project_Build_Linux = Project_Name + '-Linux.zip';
 
-<!--         <h3>
-<a id="testing-links" class="anchor" href="#Links" aria-hidden="true"><span class="octicon octicon-link"></span></a>Auto generated documentation and reports</h3>
+		</script>
+		<!--[if lt IE 9]>
+			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<!--[if lt IE 8]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+		<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    Welcome. Click the links in green on the top of this page.
+	</head>
+	<body>
+		<script type="text/javascript">
+			document.write('\
+\
+				<div id="header">\
+				<nav>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'">GitHub</a></li>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'doxygen/">Doxygen</a></li>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'reports/cppcheck-reports/">CPPCheck</a></li>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'reports/cpplint-reports/">CPPLint</a></li>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'reports/gcovr-reports/">GCovr</a></li>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'reports/gtest-report.xml">GTest</a></li>\
+					<li class="fork"><a href="'+ GitHub_Web_Page +'reports/valgrind-exec-report.xml">Valgrind</a></li>\
+					<li class="title">LINKS</li>\
+				</nav>\
+				</div> end header -->\
+\
+			');
+		</script>
 
-     -->
+		<div class="wrapper">
+			<section>
+				<div id="title">
+					<h1>C++ CMake Template</h1>
+					<p>C++ project template with CMake, gtest, and others</p>
+					<hr>
+					<script type="text/javascript">
+						document.write('\
+					<span class="credits left">Project maintained by <a href="https://github.com/'+GitHub_User+'">'+GitHub_User+'</a></span>\
+					<span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>\
+					');
+					</script>
+				</div>
 
-      </section>
+				<h3>
+					<a id="testing-links" class="anchor" href="#Download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project build download
+				</h3>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body>
+				<script type="text/javascript">
+					document.write('<ul>\
+						<li><a href="'+ GitHub_Web_Page + 'cpack/' + Project_Build_Linux +'">'+Project_Build_Linux+'</a>\
+					</ul>');
+				</script>
+
+			</section>
+
+		</div>
+		<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+	</body>
 </html>
