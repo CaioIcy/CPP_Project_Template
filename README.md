@@ -52,6 +52,9 @@ Both will produce:
 - Test Executable (_build/src/PROJECTNAME_GTest_)
 - [Doxygen documentation](https://caioicy.github.io/CPP_Project_Template/doxygen/) (_build/doc/html/_)
 
+ `./build.sh debug windows` and  `./build.sh release windows`
+ _Will use MinGW to cross compile to Windows_
+
 # Generating reports and packaging
 
 `./utils/travis/after_success.sh`

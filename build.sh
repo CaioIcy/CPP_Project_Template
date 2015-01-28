@@ -21,11 +21,15 @@ fi
 # The possible arguments to pass to this script
 ARG_BUILD_DEBUG="debug"
 ARG_BUILD_RELEASE="release"
+ARG_CROSS_COMPILE="windows"
 ARG_CLEAN="clean"
+
+CMAKE_CROSS_COMPILE_FLAG=""
 
 # Some directories
 DIR_PROJECT_ROOT=$(dirname "$(readlink -f $0)")
 DIR_BUILD=${DIR_PROJECT_ROOT}/build
+DIR_CMAKE_TOOLCHAIN=${DIR_PROJECT_ROOT}/cmake/toolchain
 
 function build {
 	prepare_build
@@ -36,6 +40,7 @@ function build {
 		attention_echo "Using CMake (build mode Debug)"
 		cmake -DSH_NAME_PROJECT=${NAME_PROJECT}\
 			-DCMAKE_BUILD_TYPE=Debug\
+			${CMAKE_CROSS_COMPILE_FLAG}\
 			${DIR_PROJECT_ROOT} || exit $?
 
 	# Target is for RELEASE
@@ -44,6 +49,7 @@ function build {
 		attention_echo "Using CMake (build mode Release)"
 		cmake -DSH_NAME_PROJECT=${NAME_PROJECT}\
 			-DCMAKE_BUILD_TYPE=Release\
+			${CMAKE_CROSS_COMPILE_FLAG}\
 			${DIR_PROJECT_ROOT} || exit $?
 
 	# Invalid target for argument
@@ -95,6 +101,12 @@ attention_echo "Beggining build script"
 # If the first argument is not empty
 if [ ! -z $1 ]
 then
+
+	# If cross compilation is wanted
+	if [ ! -z $2 ] && [ $2 == "${ARG_CROSS_COMPILE}" ]
+	then
+		CMAKE_CROSS_COMPILE_FLAG="-DCMAKE_TOOLCHAIN_FILE=${DIR_CMAKE_TOOLCHAIN}/MinGWCross.cmake"
+	fi
 
 	# Target build is for DEBUG
 	if [ $1 == "${ARG_BUILD_DEBUG}" ] 
