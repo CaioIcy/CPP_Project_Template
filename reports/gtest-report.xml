@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" timestamp="2015-01-04T19:02:32" time="0.217" name="AllTests">
-  <testsuite name="FeatureTest" tests="2" failures="0" disabled="0" errors="0" time="0.073">
-    <testcase name="ToString" status="run" time="0.036" classname="FeatureTest" />
-    <testcase name="Work" status="run" time="0.006" classname="FeatureTest" />
+<testsuites tests="4" failures="0" disabled="0" errors="0" timestamp="2015-01-28T04:02:20" time="0.185" name="AllTests">
+  <testsuite name="FeatureTest" tests="2" failures="0" disabled="0" errors="0" time="0.059">
+    <testcase name="ToString" status="run" time="0.029" classname="FeatureTest" />
+    <testcase name="Work" status="run" time="0.005" classname="FeatureTest" />
   </testsuite>
-  <testsuite name="Widget" tests="2" failures="0" disabled="0" errors="0" time="0.012">
-    <testcase name="LifeZero" status="run" time="0.007" classname="Widget" />
-    <testcase name="LifeNonZero" status="run" time="0.005" classname="Widget" />
+  <testsuite name="Widget" tests="2" failures="0" disabled="0" errors="0" time="0.011">
+    <testcase name="LifeZero" status="run" time="0.006" classname="Widget" />
+    <testcase name="LifeNonZero" status="run" time="0.004" classname="Widget" />
   </testsuite>
 </testsuites>

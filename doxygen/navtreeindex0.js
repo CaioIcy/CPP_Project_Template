@@ -1,0 +1,26 @@
+var NAVTREEINDEX0 =
+{
+".html":[1,0,0],
+"Widget_8cpp_source.html":[2,0,3],
+"Widget_8h_source.html":[2,0,4],
+"annotated.html":[1,0],
+"classWidget.html":[1,0,1],
+"classWidget.html#a558da55b3d78b682ca0e918518b743c6":[1,0,1,2],
+"classWidget.html#aa24f66bcbaaec6d458b0980e8c8eae65":[1,0,1,1],
+"classWidget.html#ab0f05949f1fa8ca233137fc4119c7401":[1,0,1,0],
+"classes.html":[1,1],
+"classsome__module_1_1Feature.html":[1,0,0,0],
+"classsome__module_1_1Feature.html#a08ae7564a134fe596d8ce61522ff98ad":[1,0,0,0,1],
+"classsome__module_1_1Feature.html#a1c8634f99091ca77dda70ea08beb3ae9":[1,0,0,0,0],
+"classsome__module_1_1Feature.html#a69e663a70946ac5885c29035d09d6731":[1,0,0,0,2],
+"classsome__module_1_1Feature.html#a768568430fe199c1087f91bb96e53f62":[1,0,0,0,3],
+"feature_8cpp_source.html":[2,0,0],
+"feature_8h_source.html":[2,0,1],
+"files.html":[2,0],
+"functions.html":[1,2,0],
+"functions_func.html":[1,2,1],
+"index.html":[],
+"main_8cpp_source.html":[2,0,2],
+"pages.html":[],
+"todo.html":[0]
+};
